@@ -13,7 +13,14 @@ jobs:
       name: github-pages
     steps:
       - uses: actions/checkout@v4
-      - run: mkdir _site && unzip -q "*.zip" -d _site
+      - name: ZIP'i ac
+        run: |
+          ls -la
+          ZIP=$(ls -t *.zip | head -n 1)
+          echo "Kullanilan ZIP: $ZIP"
+          mkdir _site
+          unzip -q "$ZIP" -d _site
+          test -f _site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
