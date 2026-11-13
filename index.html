@@ -1,1653 +1,276 @@
-﻿```html
 <!DOCTYPE html>
-<html lang="tr" class="dark">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@fiziknotum_ | Dijital Fizik Laboratuvarı & Konu Anlatım Platformu</title>
+    <title>@fiziknotum_ | Dijital Fizik Laboratuvarı</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter & JetBrains Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#eef2ff',
-                            400: '#818cf8',
-                            500: '#6366f1',
-                            600: '#4f46e5',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-
+    <!-- MathJax for LaTeX formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        /* Özel Kaydırma Çubuğu ve Range Slider Tasarımı */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        /* Ferah ve göz yormayan teknik laboratuvar arka planı (Hafif grid dokulu) */
+        body { 
+            background-color: #f8fafc; 
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 28px 28px;
+            color: #1e293b; 
+            font-family: system-ui, -apple-system, sans-serif; 
         }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
-        }
-
-
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
-        }
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 6px;
-            cursor: pointer;
-            background: #334155;
-            border-radius: 999px;
-        }
-        input[type=range]::-webkit-slider-thumb {
-            height: 18px;
-            width: 18px;
-            border-radius: 50%;
-            background: #6366f1;
-            cursor: pointer;
-            -webkit-appearance: none;
-            margin-top: -6px;
-            box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
-            border: 2px solid #ffffff;
-            transition: transform 0.15s ease, background-color 0.15s ease;
-        }
-        input[type=range]::-webkit-slider-thumb:hover {
-            transform: scale(1.18);
-            background: #818cf8;
-        }
-
-
-        /* Kesir Yazımı İçin Özel Stiller (Sıfır Gecikmeli Doğal Matematik Görünümü) */
-        .math-frac {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            vertical-align: middle;
-            margin: 0 0.25rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-        .math-frac > span:first-child {
-            border-bottom: 1.5px solid currentColor;
-            padding: 0 0.25rem 0.1rem;
-            line-height: 1.1;
-        }
-        .math-frac > span:last-child {
-            padding: 0.1rem 0.25rem 0;
-            line-height: 1.1;
-        }
-
-
-        /* Akıllı Tahta Modu (Öğretmen Sunum Görünümü) */
-        body.smartboard-active #sidebar-nav,
-        body.smartboard-active #educational-panel {
-            display: none !important;
-        }
-        body.smartboard-active #main-grid {
-            grid-template-columns: 1fr !important;
-        }
-        body.smartboard-active #canvas-wrapper {
-            height: 64vh !important;
-            min-height: 460px !important;
-        }
+        .active-unit { background-color: #2563eb !important; color: white !important; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); }
+        .active-topic { background-color: #3b82f6 !important; color: white !important; }
+        .active-tab { border-bottom: 2px solid #2563eb; color: #2563eb !important; background-color: #eff6ff; }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col">
 
-
-    <!-- ÜST BİLGİ ÇUBUĞU (HEADER) -->
-    <header class="sticky top-0 z-30 bg-slate-900/90 backdrop-blur-md border-b border-slate-800 px-4 lg:px-8 py-3">
-        <div class="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
-            <!-- Sol: Logo ve Marka -->
-            <div class="flex items-center gap-3">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/25 border border-white/10">
-                    <i class="fa-solid fa-atom text-white text-xl animate-spin" style="animation-duration: 14s;"></i>
-                </div>
-                <div>
-                    <div class="flex items-center gap-2">
-                        <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-white via-indigo-200 to-cyan-300 bg-clip-text text-transparent">@fiziknotum_</span>
-                        <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">AYT / TYT Lab</span>
-                    </div>
-                    <p class="text-xs text-slate-400 hidden sm:block">İnteraktif Fizik Simülasyonları, Animasyonlar ve Konu Anlatım Platformu</p>
-                </div>
-            </div>
-
-
-            <!-- Orta: Akıllı Tahta Modu (Sadece Tahta Modu Açıkken Hızlı Konu Seçici Gösterir) -->
-            <div id="smartboard-topic-pills" class="hidden items-center gap-1.5 bg-slate-800/90 p-1 rounded-xl border border-slate-700">
-                <button onclick="selectTopic('incline')" class="sb-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition" data-topic="incline">Eğik Düzlem</button>
-                <button onclick="selectTopic('projectile')" class="sb-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition" data-topic="projectile">Eğik Atış</button>
-                <button onclick="selectTopic('river')" class="sb-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition" data-topic="river">Nehir Problemleri</button>
-                <button onclick="selectTopic('shm')" class="sb-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition" data-topic="shm">Basit Harmonik</button>
-            </div>
-
-
-            <!-- Sağ: Öğretmen Akıllı Tahta Modu ve Instagram Butonu -->
-            <div class="flex items-center gap-2.5">
-                <button id="smartboard-btn" onclick="toggleSmartboardMode()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 transition shadow-sm cursor-pointer">
-                    <i class="fa-solid fa-chalkboard-user text-amber-400"></i>
-                    <span id="smartboard-btn-text">Akıllı Tahta Modu (Öğretmen)</span>
-                </button>
-                
-                <a href="https://instagram.com/fiziknotum_" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-500 hover:to-purple-500 text-white shadow-md shadow-pink-600/20 transition">
-                    <i class="fa-brands fa-instagram text-base"></i>
-                    <span class="hidden md:inline">@fiziknotum_</span>
-                </a>
-            </div>
+    <!-- ÜST BİLGİ VE LOGO -->
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 py-4 px-6 flex justify-between items-center sticky top-0 z-50 shadow-sm">
+        <div class="flex items-center space-x-3">
+            <span class="bg-blue-600 text-white font-bold px-3 py-1.5 rounded-lg text-lg tracking-wider shadow-sm">@fiziknotum_</span>
+            <h1 class="text-xl font-bold text-slate-800 hidden sm:block">Dijital Fizik Laboratuvarı & Ders Platformu</h1>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleSmartBoardMode()" id="smartBoardBtn" class="bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-lg text-sm font-medium transition border border-slate-300 shadow-sm">
+                🖥️ Akıllı Tahta Modu
+            </button>
         </div>
     </header>
 
+    <!-- ANA KAPSAYICI -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 flex flex-col gap-6">
 
-    <!-- ANA İÇERİK DÜZENİ -->
-    <main class="flex-1 max-w-[1600px] w-full mx-auto px-3 sm:px-6 lg:px-8 py-5">
-        <div id="main-grid" class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- 1. SEVİYE: ÜNİTE SEÇİMİ -->
+        <nav class="flex flex-wrap gap-2 bg-white/80 backdrop-blur p-3 rounded-2xl border border-slate-200 shadow-sm" id="unitNav">
+            <button onclick="selectUnit('mekanik')" id="btn-unit-mekanik" class="unit-btn active-unit px-5 py-2.5 rounded-xl font-semibold text-sm transition text-slate-600 hover:bg-slate-100">
+                ⚙️ Mekanik
+            </button>
+            <button onclick="selectUnit('elektrik')" id="btn-unit-elektrik" class="unit-btn px-5 py-2.5 rounded-xl font-semibold text-sm transition text-slate-600 hover:bg-slate-100">
+                ⚡ Elektrik ve Manyetizma
+            </button>
+        </nav>
 
-
-            <!-- SOL SÜTUN: MÜFREDAT VE KONU SEÇİMİ (3 Sütun) -->
-            <aside id="sidebar-nav" class="lg:col-span-3 bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-xl">
-                <div class="flex items-center justify-between mb-3">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                        <i class="fa-solid fa-layer-group text-indigo-400"></i>
-                        Simülasyon & Konu Seçimi
-                    </h2>
-                    <span class="text-[11px] text-slate-500 font-mono">4 Modül Aktif</span>
-                </div>
-
-
-                <!-- Konu Listesi (Mobilde yatay kaydırmalı, masaüstünde dikey) -->
-                <div id="topic-list" class="flex lg:flex-col gap-2.5 overflow-x-auto pb-2 lg:pb-0">
-                    <!-- JS ile doldurulur -->
-                </div>
-
-
-                <!-- Öğretmen & Öğrenci Kullanım İpucu -->
-                <div class="mt-5 hidden lg:block p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60 text-xs text-slate-300 space-y-2">
-                    <div class="flex items-center gap-2 font-semibold text-indigo-300">
-                        <i class="fa-solid fa-lightbulb"></i>
-                        <span>Nasıl Kullanılır?</span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed">
-                        <strong>Öğrenciler:</strong> Sürgüleri değiştirerek formüllerdeki sayısal değerlerin ve vektörlerin nasıl değiştiğini anlık gözlemleyin.
-                    </p>
-                    <p class="text-slate-400 leading-relaxed">
-                        <strong>Öğretmenler:</strong> Sağ üstteki <em>Akıllı Tahta Modu</em> ile simülasyonu tam ekran yapabilir, <strong>0.25x Yavaş Çekim</strong> ile kritik anları sınıfa gösterebilirsiniz.
-                    </p>
-                </div>
-            </aside>
-
-
-            <!-- ORTA SÜTUN: İNTERAKTİF SİMÜLASYON LABORATUVARI (5 Sütun) -->
-            <section id="simulation-column" class="lg:col-span-5 flex flex-col gap-4">
-                
-                <!-- Simülasyon Kartı -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
-                    
-                    <!-- Simülasyon Üst Başlık ve Hazır Senaryolar -->
-                    <div class="p-3.5 sm:px-5 bg-slate-900/95 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
-                        <div>
-                            <span id="sim-badge" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">AYT MEKANİK</span>
-                            <h1 id="sim-title" class="text-base sm:text-lg font-bold text-white mt-0.5">Eğik Düzlem Dinamiği</h1>
-                        </div>
-
-
-                        <!-- Hazır Senaryo Butonları -->
-                        <div class="flex items-center gap-1.5 flex-wrap" id="preset-buttons-container">
-                            <!-- JS ile doldurulur -->
-                        </div>
-                    </div>
-
-
-                    <!-- CANLI TELEMETRİ (Anlık Fiziksel Değerler) -->
-                    <div id="telemetry-bar" class="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 bg-slate-950/80 border-b border-slate-800/80 font-mono text-xs">
-                        <!-- JS ile doldurulur -->
-                    </div>
-
-
-                    <!-- HTML5 CANVAS ALANI -->
-                    <div id="canvas-wrapper" class="relative w-full h-[340px] sm:h-[390px] bg-slate-950 select-none overflow-hidden">
-                        <canvas id="sim-canvas" class="w-full h-full block"></canvas>
-
-
-                        <!-- Sağ Üst Filigran (@fiziknotum_) -->
-                        <div class="pointer-events-none absolute top-3 right-3 px-2.5 py-1 rounded-lg bg-slate-900/75 backdrop-blur-sm border border-slate-700/60 flex items-center gap-1.5 text-[11px] font-mono text-slate-300">
-                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            <span>@fiziknotum_</span>
-                        </div>
-                    </div>
-
-
-                    <!-- OYNATMA, YAVAŞ ÇEKİM VE VEKTÖR KONTROL ÇUBUĞU -->
-                    <div class="p-3 sm:px-4 bg-slate-900 border-t border-slate-800 flex flex-wrap items-center justify-between gap-3">
-                        <!-- Sol: Başlat/Duraklat & Sıfırla -->
-                        <div class="flex items-center gap-2">
-                            <button id="play-pause-btn" onclick="togglePlay()" class="flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25 transition cursor-pointer">
-                                <i id="play-icon" class="fa-solid fa-play"></i>
-                                <span id="play-text">Başlat</span>
-                            </button>
-
-
-                            <button onclick="resetSimulation()" class="flex items-center gap-1.5 px-3 py-2 rounded-xl font-semibold text-xs sm:text-sm bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition cursor-pointer" title="Simülasyonu Başa Sar">
-                                <i class="fa-solid fa-rotate-left"></i>
-                                <span>Sıfırla</span>
-                            </button>
-
-
-                            <button id="slowmo-btn" onclick="toggleSlowMo()" class="flex items-center gap-1.5 px-3 py-2 rounded-xl font-semibold text-xs sm:text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition cursor-pointer" title="Öğretmen Anlatımı İçin Yavaş Çekim">
-                                <i class="fa-solid fa-gauge-simple-low text-cyan-400"></i>
-                                <span id="slowmo-text">1.0x Normal</span>
-                            </button>
-                        </div>
-
-
-                        <!-- Sağ: Vektör & Yardımcı Çizgi Anahtarları -->
-                        <div class="flex items-center gap-2">
-                            <button id="toggle-vectors-btn" onclick="toggleVectors()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition cursor-pointer flex items-center gap-1.5">
-                                <i class="fa-solid fa-arrows-up-down-left-right"></i>
-                                <span>Vektörler: Açık</span>
-                            </button>
-                            <button id="toggle-components-btn" onclick="toggleComponents()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition cursor-pointer flex items-center gap-1.5">
-                                <i class="fa-solid fa-compass-drafting"></i>
-                                <span>Bileşenler & İz: Açık</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- DEĞİŞKEN SÜRGÜLERİ (PARAMETRE KONTROLLERİ) -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl">
-                    <div class="flex items-center justify-between mb-3.5">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                            <i class="fa-solid fa-sliders text-indigo-400"></i>
-                            Deney Parametrelerini Değiştir
-                        </h3>
-                        <span class="text-[11px] text-slate-400">g = 10 m/s² (Sabit)</span>
-                    </div>
-                    <div id="sliders-container" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- JS ile konuya göre doldurulur -->
-                    </div>
-                </div>
-            </section>
-
-
-            <!-- SAĞ SÜTUN: KONU ANLATIMI, CANLI FORMÜL BAĞLANTISI VE AYT TAKTİKLERİ (4 Sütun) -->
-            <aside id="educational-panel" class="lg:col-span-4 flex flex-col gap-4">
-                
-                <!-- 1. Dinamik Formül Laboratuvarı (Sürgülerle Canlı Değişen Denklemler) -->
-                <div class="bg-slate-900 border border-indigo-500/30 rounded-2xl p-4 sm:p-5 shadow-xl relative overflow-hidden">
-                    <div class="flex items-center justify-between mb-3">
-                        <h3 class="text-xs font-bold uppercase tracking-wider text-indigo-300 flex items-center gap-2">
-                            <i class="fa-solid fa-square-root-variable text-indigo-400"></i>
-                            Canlı Formül & Sayısal Çözüm
-                        </h3>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/15 text-indigo-300">Anlık Hesaplama</span>
-                    </div>
-                    <div id="live-formula-box" class="space-y-3 text-sm">
-                        <!-- JS ile anlık hesaplamalar buraya yazılır -->
-                    </div>
-                </div>
-
-
-                <!-- 2. Konu Özeti ve Temel Kavramlar -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-5 shadow-xl space-y-3">
-                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                        <i class="fa-solid fa-book-open text-cyan-400"></i>
-                        Konu Özeti & Fiziksel Yorum
-                    </h3>
-                    <div id="topic-summary-content" class="text-sm text-slate-300 space-y-2.5 leading-relaxed">
-                        <!-- JS ile doldurulur -->
-                    </div>
-                </div>
-
-
-                <!-- 3. Sınavda Çıkar / ÖSYM & AYT Kritik Taktikleri -->
-                <div class="bg-gradient-to-br from-amber-500/15 via-slate-900 to-slate-900 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-xl space-y-2.5">
-                    <div class="flex items-center gap-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
-                        <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
-                        <span>ÖSYM & AYT Kritik Tuzaklar</span>
-                    </div>
-                    <div id="exam-tips-content" class="text-xs sm:text-sm text-slate-200 space-y-2 leading-relaxed">
-                        <!-- JS ile doldurulur -->
-                    </div>
-                </div>
-
-
-                <!-- 4. @fiziknotum_ Reels / Video Bağlantı Kartı -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-3">
-                    <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center text-pink-400 shrink-0">
-                            <i class="fa-solid fa-film text-lg"></i>
-                        </div>
-                        <div>
-                            <h4 id="video-card-title" class="text-xs sm:text-sm font-bold text-white">1 Dakikada Konu Özeti</h4>
-                            <p class="text-xs text-slate-400">@fiziknotum_ Instagram Reels anlatımı</p>
-                        </div>
-                    </div>
-                    <a href="https://instagram.com/fiziknotum_" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-pink-300 border border-slate-700 transition shrink-0">
-                        Videoyu Aç <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i>
-                    </a>
-                </div>
-
-
-            </aside>
-
-
+        <!-- 2. SEVİYE: KONU SEÇİMİ -->
+        <div class="flex flex-wrap gap-2 bg-white/50 backdrop-blur p-2.5 rounded-xl border border-slate-200/80 shadow-xs" id="topicNav">
+            <!-- JavaScript ile doldurulacak -->
         </div>
+
+        <!-- İÇERİK ALANI (SİMÜLASYON ve VİDEO SEKME YAPISI) -->
+        <section class="flex-1 bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 flex flex-col gap-6 shadow-md" id="contentArea">
+            
+            <!-- Başlık ve Açıklama -->
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
+                <div>
+                    <h2 id="contentTitle" class="text-2xl font-bold text-slate-900">Konu Başlığı</h2>
+                    <p id="contentDesc" class="text-slate-600 text-sm mt-1">Konu açıklaması burada yer alır.</p>
+                </div>
+                <!-- Simülasyon / Video Sekme Değiştirici -->
+                <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <button onclick="switchTab('simulation')" id="tabSimBtn" class="active-tab px-4 py-2 rounded-lg text-sm font-semibold transition">
+                        🔬 Simülasyon Laboratuvarı
+                    </button>
+                    <button onclick="switchTab('video')" id="tabVidBtn" class="px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-slate-900 transition">
+                        📺 Video & Notlar
+                    </button>
+                </div>
+            </div>
+
+            <!-- SEKME 1: SİMÜLASYON ALANI -->
+            <div id="simulationPane" class="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
+                <!-- Sol / Üst: Simülasyon Ekranı (Canvas) -->
+                <div class="lg:col-span-2 bg-slate-900 rounded-xl border border-slate-800 p-4 flex flex-col items-center justify-center relative min-h-[350px] shadow-inner">
+                    <canvas id="simCanvas" width="600" height="350" class="w-full max-w-full bg-slate-950 rounded-lg shadow-inner border border-slate-800"></canvas>
+                    <div class="absolute top-4 left-4 bg-slate-900/90 backdrop-blur px-3 py-1 rounded-md border border-slate-700 text-xs text-blue-400 font-mono shadow-sm">
+                        @fiziknotum_ Canlı Motor
+                    </div>
+                </div>
+
+                <!-- Sağ / Alt: Kontrol Paneli ve Formüller -->
+                <div class="bg-slate-50 rounded-xl border border-slate-200 p-5 flex flex-col justify-between gap-4 shadow-xs">
+                    <div class="space-y-4" id="controlsContainer">
+                        <!-- Dinamik Kontroller -->
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 text-sm shadow-xs">
+                        <h4 class="font-semibold text-blue-600 mb-2">💡 Kritik Formül & Not</h4>
+                        <div id="formulaBox" class="text-slate-700 font-medium">
+                            $$\vec{F} = m \cdot \vec{a}$$
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEKME 2: VİDEO VE DERS NOTLARI ALANI -->
+            <div id="videoPane" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col gap-4 shadow-xs">
+                    <h3 class="text-lg font-semibold text-blue-600">🎬 1 Dakikada Konu Özeti (Reels / Shorts)</h3>
+                    <div class="aspect-[9/16] bg-white rounded-xl border border-slate-200 flex items-center justify-center text-slate-400 text-sm shadow-inner">
+                        [Buraya YouTube Shorts / Instagram Reels Video Linkin Gelecek]
+                    </div>
+                </div>
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col gap-4 shadow-xs">
+                    <h3 class="text-lg font-semibold text-blue-600">📝 Sınavda Çıkar Püf Noktaları</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700 text-sm" id="studyNotesList">
+                        <!-- Dinamik notlar -->
+                    </ul>
+                </div>
+            </div>
+
+        </section>
+
     </main>
 
-
-    <!-- ALT BİLGİ (FOOTER) -->
-    <footer class="mt-auto border-t border-slate-900 bg-slate-950 py-4 px-4 lg:px-8 text-xs text-slate-500">
-        <div class="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-            <div>
-                <strong class="text-slate-300">@fiziknotum_</strong> — Lise (TYT & AYT) Öğrenci ve Öğretmenleri İçin İnteraktif Fizik Platformu
-            </div>
-            <div class="flex items-center gap-4">
-                <span><i class="fa-solid fa-check-circle text-emerald-500 mr-1"></i>Müfredata %100 Uygun</span>
-                <span><i class="fa-solid fa-display text-indigo-400 mr-1"></i>Akıllı Tahta Uyumlu</span>
-            </div>
-        </div>
+    <!-- FOOTER -->
+    <footer class="bg-white/80 backdrop-blur border-t border-slate-200 py-4 text-center text-slate-500 text-xs shadow-xs">
+        © 2026 @fiziknotum_ | Tüm Hakları Saklıdır. İnteraktif Fizik Eğitim Platformu.
     </footer>
 
-
-    <!-- TÜM SİMÜLASYON VE EĞİTİM MOTORU JAVASCRIPT KODU -->
     <script>
-        /* =========================================================================
-           1. VERİTABANI: KONULAR, PARAMETRELER, SENARYOLAR VE KONU ANLATIMLARI
-           ========================================================================= */
-        const g = 10; // Lise müfredatı standart yerçekimi ivmesi (10 m/s²)
-
-
-        const TOPICS = {
-            incline: {
-                id: 'incline',
-                name: 'Eğik Düzlem Dinamiği',
-                badge: 'AYT 11. SINIF • DİNAMİK',
-                icon: 'fa-solid fa-mountain',
-                shortDesc: 'Kuvvet bileşenleri, sürtünme kuvveti ve net ivme analizi',
-                params: {
-                    angle: { label: 'Eğik Düzlem Açısı (α)', min: 10, max: 60, step: 1, val: 37, unit: '°' },
-                    mu:    { label: 'Sürtünme Katsayısı (k)', min: 0, max: 1.0, step: 0.05, val: 0.25, unit: '' },
-                    mass:  { label: 'Cisim Kütlesi (m)', min: 1, max: 15, step: 1, val: 4, unit: ' kg' }
-                },
-                presets: [
-                    { name: 'Sürtünmesiz (37°)', values: { angle: 37, mu: 0.0, mass: 4 } },
-                    { name: 'Sürtünmeli Kayma', values: { angle: 37, mu: 0.25, mass: 5 } },
-                    { name: 'Statik Denge (Durgun)', values: { angle: 30, mu: 0.70, mass: 6 } }
-                ],
-                summaryHTML: `
-                    <p>Eğik düzlem üzerindeki <strong class="text-white">m</strong> kütleli cismin ağırlığı (<strong class="text-rose-400">G = m·g</strong>) yeri merkezine doğru dik etki eder. Hareketi incelemek için ağırlık iki dik bileşene ayrılır:</p>
-                    <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
-                        <li><strong class="text-emerald-400">m·g·sin(α):</strong> Cismi eğik düzlemden aşağı kaydırmak isteyen bileşendir.</li>
-                        <li><strong class="text-cyan-400">m·g·cos(α):</strong> Cismi yüzeye bastıran bileşendir. Yüzeyin tepki kuvveti (<strong class="text-purple-400">N</strong>) bu değere eşittir.</li>
-                        <li><strong class="text-amber-400">f<sub>s</sub> = k·N = k·m·g·cos(α):</strong> Hareket yönüne ters etki eden sürtünme kuvvetidir.</li>
-                    </ul>
-                `,
-                tipsHTML: `
-                    <p><strong>1. Kütle Tuzağı:</strong> İvme formülü <span class="font-mono text-amber-300">a = g·(sinα - k·cosα)</span> olduğundan, eğik düzlemde kayan cismin <strong>ivmesi kütleye (m) bağlı değildir!</strong> Sürgüden kütleyi değiştirip ivmenin (a) sabit kaldığını hemen dene.</p>
-                    <p><strong>2. Statik Denge Şartı:</strong> Eğer <span class="font-mono text-amber-300">m·g·sinα ≤ f<sub>s(max)</sub></span> ise cisim harekete geçemez ve sürtünme kuvveti tam olarak <span class="font-mono text-amber-300">m·g·sinα</span> değerine eşit olur!</p>
-                `
+        // ÜNİTE VE KONU VERİTABANI
+        const database = {
+            mekanik: {
+                title: "Mekanik Ünitesi",
+                topics: [
+                    { id: "egik-duzlem", name: "Eğik Düzlem Dinamiği", desc: "Sürtünmeli ve sürtünmesiz eğik düzlemde kuvvet analizleri.", formula: "$$F_{net} = mg\\sin\\alpha - f_s$$" },
+                    { id: "egik-atis", name: "Eğik Atış Hareketi", desc: "Yer çekimi altında iki boyutta hareket analizi.", formula: "$$h_{max} = \\frac{v_0^2 \\sin^2\\theta}{2g}$$" },
+                    { id: "nehir", name: "Nehir Problemleri", desc: "Akıntı hızının karşıya geçiş süresine ve konuma etkisi.", formula: "$$t = \\frac{d}{v_y}$$" },
+                    { id: "bhh", name: "Basit Harmonik Hareket", desc: "Denge noktası etrafındaki periyodik hareket.", formula: "$$T = 2\\pi \\sqrt{\\frac{m}{k}}$$" },
+                    { id: "kepler", name: "Kepler Kanunları", desc: "Gezegenlerin hareket yasaları ve yörünge mekaniği.", formula: "$$T^2 = r^3$$" },
+                    { id: "momentum", name: "İtme ve Momentum", desc: "Çarpışmalar ve momentum korunum yasası.", formula: "$$I = \\Delta P = F \\cdot \\Delta t$$" }
+                ]
             },
-
-
-            projectile: {
-                id: 'projectile',
-                name: 'Eğik Atış Hareketi',
-                badge: 'AYT 11. SINIF • ATIŞLAR',
-                icon: 'fa-solid fa-baseball',
-                shortDesc: 'İki boyutta sabit ivmeli hareket, menzil ve maksimum yükseklik',
-                params: {
-                    v0:    { label: 'İlk Hız (v₀)', min: 10, max: 50, step: 1, val: 30, unit: ' m/s' },
-                    theta: { label: 'Atış Açısı (θ)', min: 0, max: 85, step: 1, val: 53, unit: '°' },
-                    h0:    { label: 'İlk Yükseklik (h₀)', min: 0, max: 60, step: 5, val: 0, unit: ' m' }
-                },
-                presets: [
-                    { name: 'Maksimum Menzil (45°)', values: { v0: 35, theta: 45, h0: 0 } },
-                    { name: '3-4-5 Üçgeni (53°)', values: { v0: 30, theta: 53, h0: 0 } },
-                    { name: 'Kaleden Yatay Atış (0°)', values: { v0: 25, theta: 0, h0: 45 } }
-                ],
-                summaryHTML: `
-                    <p>Hava direncinin ihmal edildiği ortamda eğik atılan cisim aynı anda iki bağımsız hareket yapar:</p>
-                    <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
-                        <li><strong class="text-cyan-400">Yatay Eksende (v<sub>x</sub> = v₀·cosθ):</strong> Yatayda net kuvvet sıfırdır. Bu yüzden <strong>yatay hız hareket boyunca asla değişmez!</strong></li>
-                        <li><strong class="text-emerald-400">Düşey Eksende (v<sub>y</sub>):</strong> Yerçekimi ivmesi (<span class="font-mono">g = 10 m/s²</span>) etkisinde yukarı çıkarken her saniye hızı 10 azalır, tepe noktasında <span class="font-mono">v<sub>y</sub> = 0</span> olur ve inerken her saniye 10 artar.</li>
-                    </ul>
-                `,
-                tipsHTML: `
-                    <p><strong>1. Tepe Noktasında Hız Sıfır Değildir!</strong> Öğrencilerin en sık düştüğü tuzak: Maksimum yükseklikte düşey hız (<span class="font-mono text-amber-300">v<sub>y</sub> = 0</span>) sıfırlanır ancak cismin yatay hızı (<span class="font-mono text-amber-300">v<sub>x</sub></span>) devam eder.</p>
-                    <p><strong>2. Tümler Açılar Özelliği:</strong> Aynı hızla atılan ve toplamları <strong>90°</strong> olan açıların (örneğin <strong>37° ve 53°</strong> veya <strong>30° ve 60°</strong>) yatay menzilleri (<span class="font-mono text-amber-300">X<sub>menzil</sub></span>) birbirine eşittir!</p>
-                `
-            },
-
-
-            river: {
-                id: 'river',
-                name: 'Nehir Problemleri (Bağıl Hareket)',
-                badge: 'AYT 11. SINIF • BAĞIL HAREKET',
-                icon: 'fa-solid fa-water',
-                shortDesc: 'Akıntı hızı, yere göre hız, karşıya geçiş süresi ve sürüklenme',
-                params: {
-                    vy:    { label: 'Yüzücünün Suya Göre Hızı (v_y)', min: 2, max: 12, step: 1, val: 5, unit: ' m/s' },
-                    va:    { label: 'Akıntı Hızı (v_a)', min: 0, max: 10, step: 1, val: 3, unit: ' m/s' },
-                    alpha: { label: 'Giriş Açısı (α)', min: 30, max: 150, step: 1, val: 90, unit: '°' },
-                    d:     { label: 'Nehir Genişliği (d)', min: 20, max: 100, step: 10, val: 60, unit: ' m' }
-                },
-                presets: [
-                    { name: 'Akıntıya Dik Giriş (90°)', values: { vy: 5, va: 3, alpha: 90, d: 60 } },
-                    { name: 'Sürüklenmesiz Karşı Kıyı', values: { vy: 5, va: 3, alpha: 127, d: 60 } },
-                    { name: 'Açılı Giriş (53°)', values: { vy: 10, va: 4, alpha: 53, d: 80 } }
-                ],
-                summaryHTML: `
-                    <p>Nehirde hareket eden yüzücünün kıyıdaki durgun gözlemciye göre hızı (<strong class="text-amber-400">v<sub>yer</sub></strong>), yüzücünün suya göre hızı (<strong class="text-emerald-400">v<sub>y</sub></strong>) ile akıntı hızının (<strong class="text-cyan-400">v<sub>a</sub></strong>) vektörel toplamıdır:</p>
-                    <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
-                        <li><strong class="text-emerald-400">Karşıya Geçiş Süresi (t):</strong> Yalnızca nehir genişliğine (<span class="font-mono">d</span>) ve hızın kıyıya dik bileşenine (<span class="font-mono">v<sub>y</sub>·sinα</span>) bağlıdır.</li>
-                        <li><strong class="text-amber-400">Sürüklenme Miktarı (x):</strong> Yüzücünün hedeflenen K noktasından ne kadar uzağa çıkacağını yatay net hız belirler.</li>
-                    </ul>
-                `,
-                tipsHTML: `
-                    <p><strong>1. Altın Kural:</strong> Akıntı hızı (<span class="font-mono text-amber-300">v<sub>a</sub></span>) yüzücünün <strong>karşı kıyıya ulaşma süresini (t) ASLA etkilemez!</strong> Akıntı sadece yüzücünün yatayda ne kadar sürükleneceğini değiştirir. Akıntı sürgüsünü değiştirip sürenin sabit kaldığını test et!</p>
-                    <p><strong>2. Tam Karşı Noktaya Çıkma:</strong> Yüzücü akıntıya ters yönde açıyla (<span class="font-mono text-amber-300">α > 90°</span>) girip yatay hız bileşeni akıntıyı sıfırlarsa tam karşı kıyıya dik çıkar.</p>
-                `
-            },
-
-
-            shm: {
-                id: 'shm',
-                name: 'Basit Harmonik Hareket (Yay Sarkacı)',
-                badge: 'AYT 12. SINIF • B.H.H.',
-                icon: 'fa-solid fa-wave-square',
-                shortDesc: 'Geri çağırıcı kuvvet, periyot ve kinetik-potansiyel enerji dönüşümü',
-                params: {
-                    k:    { label: 'Yay Sabiti (k)', min: 10, max: 200, step: 10, val: 80, unit: ' N/m' },
-                    m:    { label: 'Cisim Kütlesi (m)', min: 1, max: 10, step: 0.5, val: 2, unit: ' kg' },
-                    amp:  { label: 'Genlik (r)', min: 1, max: 5, step: 0.5, val: 3.5, unit: ' m' }
-                },
-                presets: [
-                    { name: 'Standart Salınım', values: { k: 80, m: 2, amp: 3.5 } },
-                    { name: 'Sert Yay (Yüksek Frekans)', values: { k: 180, m: 1.5, amp: 3.0 } },
-                    { name: 'Ağır Kütle (Yavaş Periyot)', values: { k: 40, m: 8, amp: 4.0 } }
-                ],
-                summaryHTML: `
-                    <p>Sürtünmesiz yatay düzlemde denge noktasından (<strong class="text-white">O</strong>) <strong class="text-indigo-400">±r</strong> kadar çekilip bırakılan cismin iki uç (<strong class="text-amber-400">K - L</strong>) arasında yaptığı periyodik salınımdır:</p>
-                    <ul class="list-disc pl-5 space-y-1.5 text-slate-300">
-                        <li><strong class="text-emerald-400">Denge Noktasında (O):</strong> Uzama <span class="font-mono">x = 0</span> olduğu için kuvvet ve ivme <strong>sıfırdır</strong>; hız ve Kinetik Enerji ise <strong>maksimumdur</strong>.</li>
-                        <li><strong class="text-rose-400">Uç Noktalarda (K ve L):</strong> Cisim anlık olarak durur (<span class="font-mono">v = 0</span>); Geri Çağırıcı Kuvvet (<span class="font-mono">F = -k·x</span>) ve İvme <strong>maksimumdur</strong>.</li>
-                    </ul>
-                `,
-                tipsHTML: `
-                    <p><strong>1. T = 2π·√(m/k) (TAM EMEK):</strong> Yay sarkacının periyodu yalnızca <strong>kütle (m)</strong> ve <strong>yay sabitinin (k)</strong> oranına bağlıdır. Yerçekimi ivmesine (<span class="font-mono text-amber-300">g</span>) veya çekilme miktarına (<span class="font-mono text-amber-300">Genlik = r</span>) bağlı değildir!</p>
-                    <p><strong>2. Genliği Artırırsan Ne Olur?</strong> Genliği (<span class="font-mono text-amber-300">r</span>) artırdığında yol uzar ama maksimum hız da aynı oranda arttığı için <strong>Periyot (T) değişmez!</strong></p>
-                `
+            elektrik: {
+                title: "Elektrik ve Manyetizma Ünitesi",
+                topics: [
+                    { id: "induksiyon", name: "İndüksiyon Akımı (Faraday)", desc: "Manyetik akı değişimi ile oluşan elektromotor kuvveti.", formula: "$$$\\mathcal{E} = -N \\frac{\\Delta \\Phi_B}{\\Delta t}$$" },
+                    { id: "kondansator", name: "Kondansatörler (Sığaçlar)", desc: "Yük depolama kapasitesi ve devre özellikleri.", formula: "$$Q = C \\cdot V$$" },
+                    { id: "rlc", name: "RLC Alternatif Akım Devreleri", desc: "Direnç, bobin ve sığacın alternatif akımdaki davranışı.", formula: "$$X_L = \\omega L, \\quad X_C = \\frac{1}{\\omega C}$$" }
+                ]
             }
         };
 
+        let currentUnit = 'mekanik';
+        let currentTopic = 'egik-duzlem';
+        let currentTab = 'simulation';
 
-        /* =========================================================================
-           2. SİSTEM DURUMU (STATE) DEĞİŞKENLERİ
-           ========================================================================= */
-        let currentTopicKey = 'incline';
-        let isPlaying = true;
-        let simTime = 0;
-        let timeScale = 1.0; // 1.0x Normal veya 0.25x Yavaş Çekim
-        let showVectors = true;
-        let showComponents = true;
-        let isSmartboardMode = false;
-
-
-        // Canvas Referansları
-        const canvas = document.getElementById('sim-canvas');
-        const ctx = canvas.getContext('2d');
-        let lastFrameTime = performance.now();
-
-
-        /* =========================================================================
-           3. ARAYÜZ OLUŞTURMA VE GÜNCELLEME FONKSİYONLARI
-           ========================================================================= */
-        function initApp() {
-            renderTopicNavigation();
-            selectTopic('incline');
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-            requestAnimationFrame(animationLoop);
-        }
-
-
-        function resizeCanvas() {
-            const wrapper = document.getElementById('canvas-wrapper');
-            const dpr = window.devicePixelRatio || 1;
-            const rect = wrapper.getBoundingClientRect();
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-        }
-
-
-        function renderTopicNavigation() {
-            const container = document.getElementById('topic-list');
-            container.innerHTML = '';
-
-
-            Object.values(TOPICS).forEach(topic => {
-                const isSelected = topic.id === currentTopicKey;
-                const btn = document.createElement('button');
-                btn.onclick = () => selectTopic(topic.id);
-                btn.className = `w-full text-left p-3 rounded-xl border transition flex items-start gap-3 shrink-0 sm:shrink lg:w-full min-w-[230px] lg:min-w-0 cursor-pointer ${
-                    isSelected 
-                    ? 'bg-indigo-600/20 border-indigo-500 text-white shadow-lg shadow-indigo-500/10' 
-                    : 'bg-slate-950/60 border-slate-800/80 text-slate-400 hover:bg-slate-800/60 hover:text-slate-200'
-                }`;
-                btn.innerHTML = `
-                    <div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
-                        isSelected ? 'bg-indigo-500 text-white' : 'bg-slate-800 text-slate-400'
-                    }">
-                        <i class="${topic.icon}"></i>
-                    </div>
-                    <div class="overflow-hidden">
-                        <div class="text-[10px] font-bold uppercase tracking-wider ${isSelected ? 'text-indigo-300' : 'text-slate-500'}">${topic.badge}</div>
-                        <div class="font-bold text-sm truncate ${isSelected ? 'text-white' : 'text-slate-200'}">${topic.name}</div>
-                        <div class="text-xs text-slate-400 line-clamp-1 mt-0.5">${topic.shortDesc}</div>
-                    </div>
-                `;
-                container.appendChild(btn);
-            });
-
-
-            // Akıllı tahta üst barındaki hızlı butonların aktiflik durumunu güncelle
-            document.querySelectorAll('.sb-pill').forEach(pill => {
-                if (pill.dataset.topic === currentTopicKey) {
-                    pill.className = 'sb-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition bg-indigo-600 text-white shadow';
-                } else {
-                    pill.className = 'sb-pill px-3 py-1.5 rounded-lg text-xs font-semibold transition text-slate-300 hover:bg-slate-700';
-                }
-            });
-        }
-
-
-        function selectTopic(topicKey) {
-            currentTopicKey = topicKey;
-            simTime = 0;
-            isPlaying = true;
-            updatePlayButtonUI();
-            renderTopicNavigation();
-
-
-            const topic = TOPICS[topicKey];
-            document.getElementById('sim-badge').textContent = topic.badge;
-            document.getElementById('sim-title').textContent = topic.name;
-            document.getElementById('video-card-title').textContent = `${topic.name} Reels Özeti`;
-            document.getElementById('topic-summary-content').innerHTML = topic.summaryHTML;
-            document.getElementById('exam-tips-content').innerHTML = topic.tipsHTML;
-
-
-            renderPresets(topic);
-            renderSliders(topic);
-            updateEducationalFormulas();
-        }
-
-
-        function renderPresets(topic) {
-            const container = document.getElementById('preset-buttons-container');
-            container.innerHTML = '<span class="text-[11px] text-slate-400 mr-1 hidden sm:inline"><i class="fa-solid fa-wand-magic-sparkles text-amber-400 mr-1"></i>Hazır Senaryo:</span>';
-            topic.presets.forEach(preset => {
-                const btn = document.createElement('button');
-                btn.className = 'px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-800 hover:bg-indigo-600/30 text-slate-200 hover:text-indigo-200 border border-slate-700 hover:border-indigo-500/40 transition cursor-pointer';
-                btn.textContent = preset.name;
-                btn.onclick = () => {
-                    Object.entries(preset.values).forEach(([k, v]) => {
-                        topic.params[k].val = v;
-                    });
-                    simTime = 0;
-                    isPlaying = true;
-                    updatePlayButtonUI();
-                    renderSliders(topic);
-                    updateEducationalFormulas();
-                };
-                container.appendChild(btn);
-            });
-        }
-
-
-        function renderSliders(topic) {
-            const container = document.getElementById('sliders-container');
-            container.innerHTML = '';
-
-
-            Object.entries(topic.params).forEach(([paramKey, cfg]) => {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'bg-slate-950/70 border border-slate-800/80 rounded-xl p-3 flex flex-col gap-2';
-                wrapper.innerHTML = `
-                    <div class="flex items-center justify-between text-xs">
-                        <label class="font-semibold text-slate-300">${cfg.label}</label>
-                        <span id="val-${paramKey}" class="font-mono font-bold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">${cfg.val}${cfg.unit}</span>
-                    </div>
-                    <input type="range" min="${cfg.min}" max="${cfg.max}" step="${cfg.step}" value="${cfg.val}" 
-                        oninput="onSliderChange('${paramKey}', this.value)" />
-                `;
-                container.appendChild(wrapper);
-            });
-        }
-
-
-        function onSliderChange(paramKey, newValue) {
-            const topic = TOPICS[currentTopicKey];
-            const numVal = parseFloat(newValue);
-            topic.params[paramKey].val = numVal;
-            document.getElementById(`val-${paramKey}`).textContent = `${numVal}${topic.params[paramKey].unit}`;
+        function selectUnit(unitKey) {
+            currentUnit = unitKey;
+            document.querySelectorAll('.unit-btn').forEach(b => b.classList.remove('active-unit'));
+            document.getElementById(`btn-unit-${unitKey}`).classList.add('active-unit');
             
-            // Değişken değiştiğinde hareketin net görülmesi için simülasyonu başa al
-            simTime = 0;
-            updateEducationalFormulas();
+            const firstTopic = database[unitKey].topics[0].id;
+            loadTopics(unitKey);
+            selectTopic(firstTopic);
         }
 
-
-        /* =========================================================================
-           4. KONTROL BUTONLARI (BAŞLAT/DURAKLAT, YAVAŞ ÇEKİM, AKILLI TAHTA MODU)
-           ========================================================================= */
-        function togglePlay() {
-            isPlaying = !isPlaying;
-            updatePlayButtonUI();
-        }
-
-
-        function updatePlayButtonUI() {
-            const icon = document.getElementById('play-icon');
-            const text = document.getElementById('play-text');
-            const btn = document.getElementById('play-pause-btn');
-            if (isPlaying) {
-                icon.className = 'fa-solid fa-pause';
-                text.textContent = 'Duraklat';
-                btn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm bg-amber-600 hover:bg-amber-500 text-white shadow-lg shadow-amber-600/20 transition cursor-pointer';
-            } else {
-                icon.className = 'fa-solid fa-play';
-                text.textContent = 'Devam Et';
-                btn.className = 'flex items-center gap-2 px-4 py-2 rounded-xl font-semibold text-xs sm:text-sm bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/25 transition cursor-pointer';
-            }
-        }
-
-
-        function resetSimulation() {
-            simTime = 0;
-            isPlaying = true;
-            updatePlayButtonUI();
-        }
-
-
-        function toggleSlowMo() {
-            timeScale = timeScale === 1.0 ? 0.25 : 1.0;
-            const btn = document.getElementById('slowmo-btn');
-            const text = document.getElementById('slowmo-text');
-            if (timeScale < 1.0) {
-                text.textContent = '0.25x Yavaş Çekim';
-                btn.className = 'flex items-center gap-1.5 px-3 py-2 rounded-xl font-semibold text-xs sm:text-sm bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition cursor-pointer';
-            } else {
-                text.textContent = '1.0x Normal';
-                btn.className = 'flex items-center gap-1.5 px-3 py-2 rounded-xl font-semibold text-xs sm:text-sm bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition cursor-pointer';
-            }
-        }
-
-
-        function toggleVectors() {
-            showVectors = !showVectors;
-            const btn = document.getElementById('toggle-vectors-btn');
-            btn.innerHTML = `<i class="fa-solid fa-arrows-up-down-left-right"></i><span>Vektörler: ${showVectors ? 'Açık' : 'Kapalı'}</span>`;
-            btn.className = showVectors
-                ? 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 transition cursor-pointer flex items-center gap-1.5'
-                : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700 transition cursor-pointer flex items-center gap-1.5';
-        }
-
-
-        function toggleComponents() {
-            showComponents = !showComponents;
-            const btn = document.getElementById('toggle-components-btn');
-            btn.innerHTML = `<i class="fa-solid fa-compass-drafting"></i><span>Bileşenler & İz: ${showComponents ? 'Açık' : 'Kapalı'}</span>`;
-            btn.className = showComponents
-                ? 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 transition cursor-pointer flex items-center gap-1.5'
-                : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-400 border border-slate-700 transition cursor-pointer flex items-center gap-1.5';
-        }
-
-
-        function toggleSmartboardMode() {
-            isSmartboardMode = !isSmartboardMode;
-            document.body.classList.toggle('smartboard-active', isSmartboardMode);
-            const btnText = document.getElementById('smartboard-btn-text');
-            const pills = document.getElementById('smartboard-topic-pills');
-
-
-            if (isSmartboardMode) {
-                btnText.textContent = 'Standart Görünüme Dön';
-                pills.classList.remove('hidden');
-                pills.classList.add('flex');
-            } else {
-                btnText.textContent = 'Akıllı Tahta Modu (Öğretmen)';
-                pills.classList.add('hidden');
-                pills.classList.remove('flex');
-            }
-            setTimeout(resizeCanvas, 50);
-        }
-
-
-        /* =========================================================================
-           5. CANLI FORMÜL HESAPLAMA PANELİ (SÜRGÜLERLE EŞZAMANLI DEĞİŞİR)
-           ========================================================================= */
-        function updateEducationalFormulas() {
-            const box = document.getElementById('live-formula-box');
-            const p = TOPICS[currentTopicKey].params;
-
-
-            if (currentTopicKey === 'incline') {
-                const rad = (p.angle.val * Math.PI) / 180;
-                const G = p.mass.val * g;
-                const Gx = G * Math.sin(rad);
-                const Gy = G * Math.cos(rad);
-                const fsMax = p.mu.val * Gy;
-                const isMoving = Gx > fsMax;
-                const fsActual = isMoving ? fsMax : Gx;
-                const Fnet = isMoving ? (Gx - fsMax) : 0;
-                const a = Fnet / p.mass.val;
-
-
-                box.innerHTML = `
-                    <div class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 font-mono text-xs space-y-2">
-                        <div class="flex justify-between items-center text-emerald-400">
-                            <span>F<sub>paralel</sub> = m·g·sin(${p.angle.val}°)</span>
-                            <strong>= ${Gx.toFixed(1)} N</strong>
-                        </div>
-                        <div class="flex justify-between items-center text-cyan-400">
-                            <span>N = m·g·cos(${p.angle.val}°)</span>
-                            <strong>= ${Gy.toFixed(1)} N</strong>
-                        </div>
-                        <div class="flex justify-between items-center text-amber-400">
-                            <span>f<sub>s</sub> = k·N (${p.mu.val} × ${Gy.toFixed(1)})</span>
-                            <strong>= ${fsActual.toFixed(1)} N</strong>
-                        </div>
-                        <div class="border-t border-slate-800 pt-2 flex justify-between items-center text-white text-sm">
-                            <span>a = <span class="math-frac"><span>F<sub>net</sub></span><span>m</span></span> = <span class="math-frac"><span>${Fnet.toFixed(1)}</span><span>${p.mass.val}</span></span></span>
-                            <strong class="text-indigo-400 text-base">= ${a.toFixed(2)} m/s²</strong>
-                        </div>
-                    </div>
-                    <div class="text-xs px-3 py-2 rounded-lg ${isMoving ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/15 text-rose-300 border border-rose-500/30'}">
-                        <i class="fa-solid ${isMoving ? 'fa-circle-play' : 'fa-hand'} mr-1"></i>
-                        ${isMoving 
-                            ? `<strong>Cisim İvmeleniyor:</strong> m·g·sinα (${Gx.toFixed(1)}N) > f<sub>s</sub> (${fsMax.toFixed(1)}N) olduğu için aşağı hızlanır.` 
-                            : `<strong>Statik Denge:</strong> Sürtünme kuvveti kaydırıcı bileşeni dengelediği için cisim harekete geçemez (a = 0).`}
-                    </div>
-                `;
-            } 
-            else if (currentTopicKey === 'projectile') {
-                const rad = (p.theta.val * Math.PI) / 180;
-                const vx = p.v0.val * Math.cos(rad);
-                const vy0 = p.v0.val * Math.sin(rad);
-                const tPeak = vy0 / g;
-                const hMax = p.h0.val + (vy0 * vy0) / (2 * g);
-                const tTotal = (vy0 + Math.sqrt(vy0 * vy0 + 2 * g * p.h0.val)) / g;
-                const range = vx * tTotal;
-
-
-                box.innerHTML = `
-                    <div class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 font-mono text-xs space-y-2">
-                        <div class="flex justify-between items-center text-cyan-400">
-                            <span>v<sub>x</sub> = v₀·cos(${p.theta.val}°)</span>
-                            <strong>= ${vx.toFixed(1)} m/s (Sabit)</strong>
-                        </div>
-                        <div class="flex justify-between items-center text-emerald-400">
-                            <span>v<sub>y0</sub> = v₀·sin(${p.theta.val}°)</span>
-                            <strong>= ${vy0.toFixed(1)} m/s</strong>
-                        </div>
-                        <div class="flex justify-between items-center text-amber-300">
-                            <span>h<sub>max</sub> = h₀ + <span class="math-frac"><span>v<sub>y0</sub>²</span><span>2g</span></span></span>
-                            <strong>= ${hMax.toFixed(1)} m</strong>
-                        </div>
-                        <div class="border-t border-slate-800 pt-2 flex justify-between items-center text-white text-sm">
-                            <span>X<sub>menzil</sub> = v<sub>x</sub> · t<sub>uçuş</sub> (${vx.toFixed(1)} × ${tTotal.toFixed(2)}s)</span>
-                            <strong class="text-indigo-400 text-base">= ${range.toFixed(1)} m</strong>
-                        </div>
-                    </div>
-                `;
-            }
-            else if (currentTopicKey === 'river') {
-                const rad = (p.alpha.val * Math.PI) / 180;
-                const vy_x = p.vy.val * Math.cos(rad);
-                const vy_y = p.vy.val * Math.sin(rad);
-                const vGroundX = vy_x + p.va.val;
-                const tCross = p.d.val / vy_y;
-                const drift = vGroundX * tCross;
-
-
-                box.innerHTML = `
-                    <div class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 font-mono text-xs space-y-2">
-                        <div class="flex justify-between items-center text-emerald-400">
-                            <span>v<sub>dik</sub> = v<sub>y</sub>·sin(${p.alpha.val}°)</span>
-                            <strong>= ${vy_y.toFixed(2)} m/s</strong>
-                        </div>
-                        <div class="flex justify-between items-center text-cyan-400">
-                            <span>t<sub>geçiş</sub> = <span class="math-frac"><span>d</span><span>v<sub>dik</sub></span></span> = <span class="math-frac"><span>${p.d.val}</span><span>${vy_y.toFixed(2)}</span></span></span>
-                            <strong>= ${tCross.toFixed(2)} sn</strong>
-                        </div>
-                        <div class="border-t border-slate-800 pt-2 flex justify-between items-center text-white text-sm">
-                            <span>X<sub>hedef</sub> = (v<sub>yatay</sub> + v<sub>a</sub>) · t</span>
-                            <strong class="text-amber-400 text-base">= ${drift >= 0 ? '+' : ''}${drift.toFixed(1)} m</strong>
-                        </div>
-                    </div>
-                `;
-            }
-            else if (currentTopicKey === 'shm') {
-                const omega = Math.sqrt(p.k.val / p.m.val);
-                const period = (2 * Math.PI) / omega;
-                const vMax = omega * p.amp.val;
-                const fMax = p.k.val * p.amp.val;
-                const eTotal = 0.5 * p.k.val * p.amp.val * p.amp.val;
-
-
-                box.innerHTML = `
-                    <div class="p-3 rounded-xl bg-slate-950/90 border border-slate-800 font-mono text-xs space-y-2">
-                        <div class="flex justify-between items-center text-indigo-300">
-                            <span>T = 2π · √(<span class="math-frac"><span>m</span><span>k</span></span>) = 2π · √(<span class="math-frac"><span>${p.m.val}</span><span>${p.k.val}</span></span>)</span>
-                            <strong>= ${period.toFixed(2)} sn</strong>
-                        </div>
-                        <div class="flex justify-between items-center text-emerald-400">
-                            <span>v<sub>max</sub> = ω · r (${omega.toFixed(2)} × ${p.amp.val})</span>
-                            <strong>= ${vMax.toFixed(1)} m/s</strong>
-                        </div>
-                        <div class="flex justify-between items-center text-rose-400">
-                            <span>F<sub>max</sub> = k · r (${p.k.val} × ${p.amp.val})</span>
-                            <strong>= ${fMax.toFixed(0)} N</strong>
-                        </div>
-                        <div class="border-t border-slate-800 pt-2 flex justify-between items-center text-amber-300 text-sm">
-                            <span>E<sub>toplam</sub> = ½ · k · r²</span>
-                            <strong>= ${eTotal.toFixed(1)} Joule</strong>
-                        </div>
-                    </div>
-                `;
-            }
-        }
-
-
-        function setTelemetryBar(items) {
-            const bar = document.getElementById('telemetry-bar');
-            bar.innerHTML = items.map(item => `
-                <div class="bg-slate-900/90 border border-slate-800 rounded-lg px-2.5 py-1.5 flex items-center justify-between">
-                    <span class="text-slate-400 text-[11px]">${item.label}</span>
-                    <span class="font-bold ${item.color || 'text-white'}">${item.value}</span>
-                </div>
-            `).join('');
-        }
-
-
-        /* =========================================================================
-           6. YARDIMCI CANVAS ÇİZİM FONKSİYONLARI (OKLAR, ETİKETLER VE IZGARALAR)
-           ========================================================================= */
-        function drawGrid(w, h) {
-            ctx.save();
-            ctx.strokeStyle = 'rgba(148, 163, 184, 0.07)';
-            ctx.lineWidth = 1;
-            const step = 35;
-            for (let x = 0; x < w; x += step) {
-                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-            }
-            for (let y = 0; y < h; y += step) {
-                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-            }
-            ctx.restore();
-        }
-
-
-        function drawVectorArrow(x1, y1, x2, y2, color, label, dashed = false) {
-            const dx = x2 - x1;
-            const dy = y2 - y1;
-            const len = Math.hypot(dx, dy);
-            if (len < 4) return;
-
-
-            const angle = Math.atan2(dy, dx);
-            const headLen = Math.min(10, len * 0.35);
-
-
-            ctx.save();
-            ctx.strokeStyle = color;
-            ctx.fillStyle = color;
-            ctx.lineWidth = 2.5;
-            if (dashed) ctx.setLineDash([4, 4]);
-
-
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.stroke();
-
-
-            ctx.setLineDash([]);
-            ctx.beginPath();
-            ctx.moveTo(x2, y2);
-            ctx.lineTo(x2 - headLen * Math.cos(angle - Math.PI / 6), y2 - headLen * Math.sin(angle - Math.PI / 6));
-            ctx.lineTo(x2 - headLen * Math.cos(angle + Math.PI / 6), y2 - headLen * Math.sin(angle + Math.PI / 6));
-            ctx.closePath();
-            ctx.fill();
-
-
-            if (label) {
-                const lx = x2 + Math.cos(angle) * 14;
-                const ly = y2 + Math.sin(angle) * 14;
-                ctx.font = 'bold 11px "JetBrains Mono", monospace';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                const textWidth = ctx.measureText(label).width;
-                ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-                ctx.fillRect(lx - textWidth / 2 - 4, ly - 8, textWidth + 8, 16);
-                ctx.fillStyle = color;
-                ctx.fillText(label, lx, ly);
-            }
-            ctx.restore();
-        }
-
-
-        /* =========================================================================
-           7. SİMÜLASYON 1: EĞİK DÜZLEM DİNAMİĞİ ÇİZİM MOTORU
-           ========================================================================= */
-        function renderInclinedPlane(w, h) {
-            const p = TOPICS.incline.params;
-            const deg = p.angle.val;
-            const rad = (deg * Math.PI) / 180;
-            const mu = p.mu.val;
-            const m = p.mass.val;
-
-
-            const G = m * g;
-            const Gx = G * Math.sin(rad);
-            const Gy = G * Math.cos(rad);
-            const fsMax = mu * Gy;
-            const isMoving = Gx > fsMax;
-            const fs = isMoving ? fsMax : Gx;
-            const Fnet = isMoving ? Gx - fs : 0;
-            const acc = Fnet / m;
-
-
-            // Rampanın uzunluğu 20 metre kabul edilsin
-            const rampMeters = 20;
-            let dist = 0.5 * acc * simTime * simTime;
-            if (dist >= rampMeters) {
-                dist = rampMeters;
-                if (simTime > Math.sqrt((2 * rampMeters) / Math.max(acc, 0.01)) + 1.2) {
-                    simTime = 0; // Sona ulaşınca kısa bir beklemeden sonra başa sar
-                }
-            }
-            const vel = dist < rampMeters ? acc * simTime : Math.sqrt(2 * acc * rampMeters);
-
-
-            setTelemetryBar([
-                { label: 'Net İvme (a)', value: `${acc.toFixed(2)} m/s²`, color: 'text-indigo-400' },
-                { label: 'Anlık Hız (v)', value: `${vel.toFixed(1)} m/s`, color: 'text-emerald-400' },
-                { label: 'Net Kuvvet (F)', value: `${Fnet.toFixed(1)} N`, color: 'text-amber-300' },
-                { label: 'Alınan Yol (x)', value: `${dist.toFixed(1)} m`, color: 'text-cyan-300' }
-            ]);
-
-
-            // Rampa Köşe Noktaları
-            const marginX = 65;
-            const baseY = h - 45;
-            const maxRampPx = Math.min(w - marginX * 2, (h - 90) / Math.sin(Math.max(rad, 0.35)));
-            const rampPx = Math.min(maxRampPx, 360);
-
-
-            const topX = marginX;
-            const topY = baseY - rampPx * Math.sin(rad);
-            const botX = marginX + rampPx * Math.cos(rad);
-            const botY = baseY;
-
-
-            // Üçgen Rampa Gövdesi
-            ctx.save();
-            ctx.beginPath();
-            ctx.moveTo(topX, topY);
-            ctx.lineTo(botX, botY);
-            ctx.lineTo(topX, botY);
-            ctx.closePath();
-            ctx.fillStyle = 'rgba(30, 41, 59, 0.85)';
-            ctx.fill();
-            ctx.strokeStyle = '#64748b';
-            ctx.lineWidth = 2.5;
-            ctx.stroke();
-
-
-            // Sürtünmeli Yüzey Dokusu
-            if (mu > 0) {
-                ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
-                ctx.lineWidth = 2;
-                for (let s = 15; s < rampPx - 10; s += 16) {
-                    const sx = topX + s * Math.cos(rad);
-                    const sy = topY + s * Math.sin(rad);
-                    ctx.beginPath();
-                    ctx.moveTo(sx, sy);
-                    ctx.lineTo(sx - 5 * Math.cos(rad + 0.8), sy - 5 * Math.sin(rad + 0.8));
-                    ctx.stroke();
-                }
-            }
-
-
-            // Açı Yayı (α)
-            ctx.beginPath();
-            ctx.arc(botX, botY, 42, Math.PI, Math.PI + rad);
-            ctx.strokeStyle = '#818cf8';
-            ctx.lineWidth = 2;
-            ctx.stroke();
-            ctx.fillStyle = '#c7d2fe';
-            ctx.font = 'bold 12px "JetBrains Mono", monospace';
-            ctx.fillText(`α=${deg}°`, botX - 68, botY - 10);
-            ctx.restore();
-
-
-            // Kütle Bloğunun Konumu
-            const progress = dist / rampMeters;
-            const travelPx = (rampPx - 70) * progress + 35;
-            const blockSurfaceX = topX + travelPx * Math.cos(rad);
-            const blockSurfaceY = topY + travelPx * Math.sin(rad);
-
-
-            const boxW = 46;
-            const boxH = 34;
-
-
-            ctx.save();
-            ctx.translate(blockSurfaceX, blockSurfaceY);
-            ctx.rotate(rad);
-
-
-            // Blok Çizimi
-            ctx.fillStyle = '#4f46e5';
-            ctx.strokeStyle = '#c7d2fe';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.roundRect(-boxW / 2, -boxH, boxW, boxH, 6);
-            ctx.fill();
-            ctx.stroke();
-
-
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 12px "JetBrains Mono", monospace';
-            ctx.textAlign = 'center';
-            ctx.fillText(`${m}kg`, 0, -boxH / 2 + 4);
-            ctx.restore();
-
-
-            // Bloğun kütle merkezi (Dünya Koordinatlarında)
-            const cmX = blockSurfaceX + (boxH / 2) * Math.sin(rad);
-            const cmY = blockSurfaceY - (boxH / 2) * Math.cos(rad);
-
-
-            const scale = 1.35; // Vektör çizim ölçeği
-
-
-            if (showComponents) {
-                // mg*sin(a) ve mg*cos(a) bileşenleri
-                drawVectorArrow(
-                    cmX, cmY,
-                    cmX + Math.cos(rad) * Math.min(Gx * scale, 95),
-                    cmY + Math.sin(rad) * Math.min(Gx * scale, 95),
-                    '#34d399', `mg·sinα (${Gx.toFixed(0)}N)`, true
-                );
-                drawVectorArrow(
-                    cmX, cmY,
-                    cmX - Math.sin(rad) * Math.min(Gy * scale, 85),
-                    cmY + Math.cos(rad) * Math.min(Gy * scale, 85),
-                    '#38bdf8', `mg·cosα (${Gy.toFixed(0)}N)`, true
-                );
-            }
-
-
-            if (showVectors) {
-                // Ağırlık G = mg (Tam aşağı)
-                drawVectorArrow(cmX, cmY, cmX, cmY + Math.min(G * scale, 100), '#fb7185', `G=${G.toFixed(0)}N`);
-                // Normal Kuvveti N (Yüzeye dik yukarı)
-                drawVectorArrow(
-                    cmX, cmY,
-                    cmX + Math.sin(rad) * Math.min(Gy * scale, 85),
-                    cmY - Math.cos(rad) * Math.min(Gy * scale, 85),
-                    '#c084fc', `N=${Gy.toFixed(0)}N`
-                );
-                // Sürtünme Kuvveti fs (Harekete ters yukarı)
-                if (fs > 0.2) {
-                    drawVectorArrow(
-                        blockSurfaceX, blockSurfaceY,
-                        blockSurfaceX - Math.cos(rad) * Math.min(fs * scale * 1.4, 85),
-                        blockSurfaceY - Math.sin(rad) * Math.min(fs * scale * 1.4, 85),
-                        '#fbbf24', `fs=${fs.toFixed(1)}N`
-                    );
-                }
-            }
-        }
-
-
-        /* =========================================================================
-           8. SİMÜLASYON 2: EĞİK ATIŞ HAREKETİ ÇİZİM MOTORU
-           ========================================================================= */
-        function renderProjectileMotion(w, h) {
-            const p = TOPICS.projectile.params;
-            const v0 = p.v0.val;
-            const theta = p.theta.val;
-            const h0 = p.h0.val;
-            const rad = (theta * Math.PI) / 180;
-
-
-            const vx = v0 * Math.cos(rad);
-            const vy0 = v0 * Math.sin(rad);
-            const tTotal = (vy0 + Math.sqrt(vy0 * vy0 + 2 * g * h0)) / g;
-            const maxRange = Math.max(vx * tTotal, 10);
-            const hMax = h0 + (vy0 * vy0) / (2 * g);
-
-
-            const t = Math.min(simTime, tTotal);
-            if (simTime > tTotal + 1.4) {
-                simTime = 0; // Yere çarptıktan kısa süre sonra otomatik tekrarla
-            }
-
-
-            const curX = vx * t;
-            const curY = Math.max(0, h0 + vy0 * t - 0.5 * g * t * t);
-            const curVy = vy0 - g * t;
-            const curV = Math.hypot(vx, curVy);
-
-
-            setTelemetryBar([
-                { label: 'Anlık Hız (v)', value: `${curV.toFixed(1)} m/s`, color: 'text-indigo-400' },
-                { label: 'Düşey Hız (vy)', value: `${curVy.toFixed(1)} m/s`, color: 'text-emerald-400' },
-                { label: 'Yükseklik (h)', value: `${curY.toFixed(1)} m`, color: 'text-amber-300' },
-                { label: 'Menzil (x)', value: `${curX.toFixed(1)} m`, color: 'text-cyan-300' }
-            ]);
-
-
-            // Dinamik Ölçekleme (Her hız ve yükseklik ekrana sığsın)
-            const padLeft = 52;
-            const padRight = 45;
-            const padBottom = 42;
-            const padTop = 45;
-
-
-            const scaleX = (w - padLeft - padRight) / Math.max(maxRange * 1.1, 60);
-            const scaleY = (h - padBottom - padTop) / Math.max(hMax * 1.18, 45);
-            const scale = Math.min(scaleX, scaleY);
-
-
-            const groundY = h - padBottom;
-            const originX = padLeft;
-
-
-            // Zemin Çizgisi
-            ctx.save();
-            ctx.strokeStyle = '#475569';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.moveTo(20, groundY);
-            ctx.lineTo(w - 20, groundY);
-            ctx.stroke();
-
-
-            // İlk Yükseklik Kulesi (h0 > 0 ise)
-            if (h0 > 0) {
-                const towerH = h0 * scale;
-                ctx.fillStyle = '#334155';
-                ctx.strokeStyle = '#64748b';
-                ctx.fillRect(originX - 16, groundY - towerH, 16, towerH);
-                ctx.strokeRect(originX - 16, groundY - towerH, 16, towerH);
-            }
-
-
-            // Yörünge İzi ve Tepe Noktası İşareti
-            if (showComponents) {
-                ctx.beginPath();
-                ctx.setLineDash([5, 5]);
-                ctx.strokeStyle = 'rgba(129, 140, 248, 0.5)';
-                ctx.lineWidth = 2;
-                for (let stepT = 0; stepT <= tTotal; stepT += tTotal / 60) {
-                    const px = originX + (vx * stepT) * scale;
-                    const py = groundY - (h0 + vy0 * stepT - 0.5 * g * stepT * stepT) * scale;
-                    if (stepT === 0) ctx.moveTo(px, py);
-                    else ctx.lineTo(px, py);
-                }
-                ctx.stroke();
-                ctx.setLineDash([]);
-
-
-                // Maksimum Yükseklik (Tepe) Noktası Gösterimi
-                const tPeak = vy0 / g;
-                const peakX = originX + vx * tPeak * scale;
-                const peakY = groundY - hMax * scale;
-                ctx.fillStyle = '#fbbf24';
-                ctx.beginPath();
-                ctx.arc(peakX, peakY, 4.5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.font = 'bold 11px "JetBrains Mono", monospace';
-                ctx.fillText(`h_max=${hMax.toFixed(1)}m (vy=0)`, peakX - 40, peakY - 10);
-            }
-
-
-            // Cisim (Top) Çizimi
-            const ballX = originX + curX * scale;
-            const ballY = groundY - curY * scale;
-
-
-            ctx.fillStyle = '#6366f1';
-            ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.arc(ballX, ballY, 9, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            ctx.restore();
-
-
-            // Hız Vektörleri
-            const vScale = 1.6;
-            if (showComponents) {
-                drawVectorArrow(ballX, ballY, ballX + vx * vScale, ballY, '#38bdf8', `vx=${vx.toFixed(0)}`, true);
-                if (Math.abs(curVy) > 0.5) {
-                    drawVectorArrow(ballX, ballY, ballX, ballY - curVy * vScale, '#34d399', `vy=${curVy.toFixed(0)}`, true);
-                }
-            }
-            if (showVectors) {
-                drawVectorArrow(ballX, ballY, ballX + vx * vScale, ballY - curVy * vScale, '#f43f5e', `v=${curV.toFixed(0)}m/s`);
-            }
-        }
-
-
-        /* =========================================================================
-           9. SİMÜLASYON 3: NEHİRDE HAREKET (BAĞIL HAREKET) ÇİZİM MOTORU
-           ========================================================================= */
-        function renderRiverCrossing(w, h) {
-            const p = TOPICS.river.params;
-            const vy = p.vy.val;
-            const va = p.va.val;
-            const alpha = p.alpha.val;
-            const d = p.d.val;
-            const rad = (alpha * Math.PI) / 180;
-
-
-            const vxSwimmer = vy * Math.cos(rad);
-            const vySwimmer = vy * Math.sin(rad);
-            const vxGround = vxSwimmer + va;
-            const vGround = Math.hypot(vxGround, vySwimmer);
-
-
-            const tCross = d / vySwimmer;
-            const t = Math.min(simTime, tCross);
-            if (simTime > tCross + 1.5) {
-                simTime = 0;
-            }
-
-
-            const curY = vySwimmer * t;
-            const curX = vxGround * t;
-            const totalDrift = vxGround * tCross;
-
-
-            setTelemetryBar([
-                { label: 'Karşıya Süre (t)', value: `${tCross.toFixed(2)} sn`, color: 'text-emerald-400' },
-                { label: 'Yere Göre Hız', value: `${vGround.toFixed(1)} m/s`, color: 'text-amber-300' },
-                { label: 'Kıyıdan Sapma (x)', value: `${totalDrift.toFixed(1)} m`, color: 'text-cyan-300' },
-                { label: 'Geçen Süre', value: `${t.toFixed(1)} sn`, color: 'text-indigo-400' }
-            ]);
-
-
-            const topBankY = 58;
-            const botBankY = h - 55;
-            const riverPxH = botBankY - topBankY;
-            const scale = riverPxH / d;
-            const startX = w * 0.42;
-
-
-            // Nehir Gövdesi ve Akıntı Çizgileri
-            ctx.save();
-            ctx.fillStyle = 'rgba(14, 116, 144, 0.22)';
-            ctx.fillRect(0, topBankY, w, riverPxH);
-
-
-            ctx.strokeStyle = '#10b981';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(0, topBankY); ctx.lineTo(w, topBankY);
-            ctx.moveTo(0, botBankY); ctx.lineTo(w, botBankY);
-            ctx.stroke();
-
-
-            // Hareketli Su Dalgaları
-            ctx.strokeStyle = 'rgba(56, 189, 248, 0.25)';
-            ctx.lineWidth = 1.5;
-            const waveShift = (performance.now() * 0.03 * va) % 80;
-            for (let row = topBankY + 28; row < botBankY - 15; row += 38) {
-                for (let col = -80; col < w + 80; col += 80) {
-                    const wx = col + waveShift;
-                    ctx.beginPath();
-                    ctx.moveTo(wx, row);
-                    ctx.lineTo(wx + 28, row);
-                    ctx.stroke();
-                }
-            }
-
-
-            // O Başlangıç Noktası ve Tam Karşı K Noktası
-            ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 12px "JetBrains Mono", monospace';
-            ctx.textAlign = 'center';
-            ctx.fillText('O (Başlangıç)', startX, botBankY + 22);
-            ctx.fillText('K (Dik Hedef)', startX, topBankY - 14);
-
-
-            // O-K Dik Kesikli Referans Çizgisi
-            ctx.setLineDash([4, 4]);
-            ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
-            ctx.beginPath();
-            ctx.moveTo(startX, botBankY);
-            ctx.lineTo(startX, topBankY);
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-
-            if (showComponents) {
-                // Suya göre hedeflenen doğrultu ve Yere göre gerçek yörünge
-                const targetX = startX + (vxSwimmer * tCross) * scale;
-                const finalX = startX + totalDrift * scale;
-
-
-                // Suya göre yönelim (Yeşil kesikli)
-                ctx.setLineDash([5, 5]);
-                ctx.strokeStyle = 'rgba(52, 211, 153, 0.55)';
-                ctx.beginPath();
-                ctx.moveTo(startX, botBankY);
-                ctx.lineTo(targetX, topBankY);
-                ctx.stroke();
-
-
-                // Gerçek Yörünge (Amber kesikli)
-                ctx.strokeStyle = 'rgba(251, 191, 36, 0.7)';
-                ctx.beginPath();
-                ctx.moveTo(startX, botBankY);
-                ctx.lineTo(finalX, topBankY);
-                ctx.stroke();
-                ctx.setLineDash([]);
-
-
-                // Çıkış Noktası İşaretçisi (M)
-                ctx.fillStyle = '#fbbf24';
-                ctx.beginPath();
-                ctx.arc(finalX, topBankY, 5, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.fillText(`Çıkış (${totalDrift.toFixed(0)}m)`, finalX, topBankY - 28);
-            }
-
-
-            // Yüzücünün Anlık Konumu
-            const swimmerX = startX + curX * scale;
-            const swimmerY = botBankY - curY * scale;
-
-
-            ctx.fillStyle = '#38bdf8';
-            ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.arc(swimmerX, swimmerY, 10, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.stroke();
-            ctx.restore();
-
-
-            // Hız Vektörleri
-            const vScale = 9.0;
-            if (showVectors) {
-                const tipSwimmerX = swimmerX + vxSwimmer * vScale;
-                const tipSwimmerY = swimmerY - vySwimmer * vScale;
-                drawVectorArrow(swimmerX, swimmerY, tipSwimmerX, tipSwimmerY, '#34d399', `v_suya=${vy}`);
-
-
-                if (va > 0) {
-                    // Uç uca ekleme yöntemiyle akıntı vektörü
-                    drawVectorArrow(tipSwimmerX, tipSwimmerY, tipSwimmerX + va * vScale, tipSwimmerY, '#38bdf8', `v_akıntı=${va}`);
-                }
-
-
-                // Bileşke Yere Göre Hız Vektörü
-                drawVectorArrow(
-                    swimmerX, swimmerY,
-                    swimmerX + vxGround * vScale,
-                    swimmerY - vySwimmer * vScale,
-                    '#fbbf24', `v_yer=${vGround.toFixed(1)}`
-                );
-            }
-        }
-
-
-        /* =========================================================================
-           10. SİMÜLASYON 4: BASİT HARMONİK HAREKET (YAY SARKACI) ÇİZİM MOTORU
-           ========================================================================= */
-        function renderSHM(w, h) {
-            const p = TOPICS.shm.params;
-            const k = p.k.val;
-            const m = p.m.val;
-            const amp = p.amp.val;
-
-
-            const omega = Math.sqrt(k / m);
-            const period = (2 * Math.PI) / omega;
-
-
-            // Konum, Hız ve İvme Denklemleri (Uç noktadan cos ile başlar)
-            const x = amp * Math.cos(omega * simTime);
-            const v = -amp * omega * Math.sin(omega * simTime);
-            const F = -k * x;
-
-
-            const ePot = 0.5 * k * x * x;
-            const eKin = 0.5 * m * v * v;
-            const eTot = 0.5 * k * amp * amp;
-
-
-            setTelemetryBar([
-                { label: 'Periyot (T)', value: `${period.toFixed(2)} sn`, color: 'text-indigo-400' },
-                { label: 'Uzama (x)', value: `${x.toFixed(2)} m`, color: 'text-cyan-300' },
-                { label: 'Anlık Hız (v)', value: `${Math.abs(v).toFixed(1)} m/s`, color: 'text-emerald-400' },
-                { label: 'Geri Çağırıcı (F)', value: `${Math.abs(F).toFixed(0)} N`, color: 'text-rose-400' }
-            ]);
-
-
-            const wallX = 48;
-            const centerX = w * 0.54;
-            const floorY = h * 0.62;
-            const pxPerMeter = Math.min((w * 0.34) / 5.2, 42);
-
-
-            // Sol Duvar ve Sürtünmesiz Zemin
-            ctx.save();
-            ctx.strokeStyle = '#64748b';
-            ctx.lineWidth = 3;
-            ctx.beginPath();
-            ctx.moveTo(wallX, floorY - 75);
-            ctx.lineTo(wallX, floorY);
-            ctx.lineTo(w - 30, floorY);
-            ctx.stroke();
-
-
-            // K (-r), O (0), L (+r) Noktaları
-            const kX = centerX - amp * pxPerMeter;
-            const lX = centerX + amp * pxPerMeter;
-
-
-            ctx.font = 'bold 12px "JetBrains Mono", monospace';
-            ctx.textAlign = 'center';
-
-
-            // K, O, L Referans Çizgileri
-            [
-                { pos: kX, label: `K (-${amp}m)`, col: '#f43f5e' },
-                { pos: centerX, label: 'O (Denge x=0)', col: '#34d399' },
-                { pos: lX, label: `L (+${amp}m)`, col: '#f43f5e' }
-            ].forEach(pt => {
-                ctx.strokeStyle = pt.col;
-                ctx.setLineDash([4, 4]);
-                ctx.beginPath();
-                ctx.moveTo(pt.pos, floorY - 65);
-                ctx.lineTo(pt.pos, floorY + 12);
-                ctx.stroke();
-                ctx.setLineDash([]);
-                ctx.fillStyle = pt.col;
-                ctx.fillText(pt.label, pt.pos, floorY + 28);
+        function loadTopics(unitKey) {
+            const nav = document.getElementById('topicNav');
+            nav.innerHTML = '';
+            database[unitKey].topics.forEach(t => {
+                const btn = document.createElement('button');
+                btn.id = `btn-topic-${t.id}`;
+                btn.className = `topic-btn px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition text-slate-600 hover:bg-slate-100 bg-white shadow-xs border border-slate-200`;
+                btn.innerText = t.name;
+                btn.onclick = () => selectTopic(t.id);
+                nav.appendChild(btn);
             });
+        }
 
+        function selectTopic(topicId) {
+            currentTopic = topicId;
+            document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active-topic'));
+            const activeBtn = document.getElementById(`btn-topic-${topicId}`);
+            if(activeBtn) activeBtn.classList.add('active-topic');
 
-            // Kütle Konumu
-            const blockX = centerX + x * pxPerMeter;
-            const boxSize = 48;
-
-
-            // Zigzag Yay Çizimi
-            const coils = 14;
-            const springStartX = wallX;
-            const springEndX = blockX - boxSize / 2;
-            const springY = floorY - boxSize / 2;
-            const stepX = (springEndX - springStartX) / coils;
-
-
-            ctx.strokeStyle = '#94a3b8';
-            ctx.lineWidth = 2.5;
-            ctx.beginPath();
-            ctx.moveTo(springStartX, springY);
-            for (let i = 1; i < coils; i++) {
-                const cx = springStartX + i * stepX;
-                const cy = springY + (i % 2 === 0 ? -12 : 12);
-                ctx.lineTo(cx, cy);
+            let topicData = null;
+            for(let u in database) {
+                const found = database[u].topics.find(t => t.id === topicId);
+                if(found) topicData = found;
             }
-            ctx.lineTo(springEndX, springY);
-            ctx.stroke();
 
-
-            // Kütle Bloğu
-            ctx.fillStyle = '#4f46e5';
-            ctx.strokeStyle = '#e0e7ff';
-            ctx.lineWidth = 2;
-            ctx.beginPath();
-            ctx.roundRect(blockX - boxSize / 2, floorY - boxSize, boxSize, boxSize, 8);
-            ctx.fill();
-            ctx.stroke();
-
-
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText(`${m}kg`, blockX, floorY - boxSize / 2 + 4);
-
-
-            // Canlı Enerji Sütunları (Üst Bölümde Kinetik ve Potansiyel Enerji Dönüşümü)
-            if (showComponents) {
-                const barW = 190;
-                const barX = w - barW - 22;
-                const barY = 22;
-
-
-                ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
-                ctx.strokeStyle = '#334155';
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.roundRect(barX, barY, barW, 74, 10);
-                ctx.fill();
-                ctx.stroke();
-
-
-                const kinRatio = eTot > 0 ? eKin / eTot : 0;
-                const potRatio = eTot > 0 ? ePot / eTot : 0;
-
-
-                ctx.textAlign = 'left';
-                ctx.font = 'bold 10px "JetBrains Mono", monospace';
+            if(topicData) {
+                document.getElementById('contentTitle').innerText = topicData.name;
+                document.getElementById('contentDesc').innerText = topicData.desc;
+                document.getElementById('formulaBox').innerHTML = topicData.formula;
+                if(window.MathJax) MathJax.typeset();
                 
-                // Kinetik Enerji Barı
-                ctx.fillStyle = '#34d399';
-                ctx.fillText(`E_kinetik: ${eKin.toFixed(0)} J`, barX + 10, barY + 18);
-                ctx.fillStyle = '#1e293b';
-                ctx.fillRect(barX + 10, barY + 24, barW - 20, 8);
-                ctx.fillStyle = '#10b981';
-                ctx.fillRect(barX + 10, barY + 24, (barW - 20) * kinRatio, 8);
-
-
-                // Yay Potansiyel Enerji Barı
-                ctx.fillStyle = '#fb7185';
-                ctx.fillText(`E_potansiyel: ${ePot.toFixed(0)} J`, barX + 10, barY + 48);
-                ctx.fillStyle = '#1e293b';
-                ctx.fillRect(barX + 10, barY + 54, barW - 20, 8);
-                ctx.fillStyle = '#f43f5e';
-                ctx.fillRect(barX + 10, barY + 54, (barW - 20) * potRatio, 8);
-            }
-            ctx.restore();
-
-
-            // Hız ve Geri Çağırıcı Kuvvet Vektörleri
-            if (showVectors) {
-                const cmY = floorY - boxSize / 2;
-                if (Math.abs(F) > 2) {
-                    const fLen = Math.sign(F) * Math.min(Math.abs(F) * 0.22, 95);
-                    drawVectorArrow(blockX, cmY - 12, blockX + fLen, cmY - 12, '#fb7185', `F=${Math.abs(F).toFixed(0)}N`);
-                }
-                if (Math.abs(v) > 0.3) {
-                    const vLen = Math.sign(v) * Math.min(Math.abs(v) * 4.2, 95);
-                    drawVectorArrow(blockX, cmY + 12, blockX + vLen, cmY + 12, '#34d399', `v=${Math.abs(v).toFixed(1)}m/s`);
-                }
+                setupControlsForTopic(topicId);
+                drawSimulation(topicId);
             }
         }
 
+        function switchTab(tab) {
+            currentTab = tab;
+            const simPane = document.getElementById('simulationPane');
+            const vidPane = document.getElementById('videoPane');
+            const simBtn = document.getElementById('tabSimBtn');
+            const vidBtn = document.getElementById('tabVidBtn');
 
-        /* =========================================================================
-           11. ANA ANİMASYON DÖNGÜSÜ (60 FPS)
-           ========================================================================= */
-        function animationLoop(now) {
-            const dt = Math.min((now - lastFrameTime) / 1000, 0.05);
-            lastFrameTime = now;
-
-
-            if (isPlaying) {
-                simTime += dt * timeScale;
+            if(tab === 'simulation') {
+                simPane.classList.remove('hidden');
+                vidPane.classList.add('hidden');
+                simBtn.classList.add('active-tab');
+                simBtn.classList.remove('text-slate-600');
+                vidBtn.classList.remove('active-tab');
+                vidBtn.classList.add('text-slate-600');
+            } else {
+                simPane.classList.add('hidden');
+                vidPane.classList.remove('hidden');
+                vidBtn.classList.add('active-tab');
+                vidBtn.classList.remove('text-slate-600');
+                simBtn.classList.remove('active-tab');
+                simBtn.classList.add('text-slate-600');
             }
-
-
-            const rect = canvas.getBoundingClientRect();
-            const w = rect.width;
-            const h = rect.height;
-
-
-            ctx.clearRect(0, 0, w, h);
-            drawGrid(w, h);
-
-
-            if (currentTopicKey === 'incline') renderInclinedPlane(w, h);
-            else if (currentTopicKey === 'projectile') renderProjectileMotion(w, h);
-            else if (currentTopicKey === 'river') renderRiverCrossing(w, h);
-            else if (currentTopicKey === 'shm') renderSHM(w, h);
-
-
-            requestAnimationFrame(animationLoop);
         }
 
+        function setupControlsForTopic(topicId) {
+            const container = document.getElementById('controlsContainer');
+            container.innerHTML = `
+                <div class="space-y-2">
+                    <label class="text-xs text-slate-600 font-semibold">Simülasyon Parametresi (Örn: Açı / Değer)</label>
+                    <input type="range" min="10" max="80" value="30" class="w-full accent-blue-600" oninput="updateSimVal(this.value)">
+                </div>
+                <div class="text-xs text-slate-600 bg-white p-3 rounded-xl border border-slate-200 shadow-xs">
+                    Sürgüyü hareket ettirerek canlı değer değişimini gözlemleyin.
+                </div>
+            `;
+        }
 
-        window.onload = initApp;
+        function updateSimVal(val) {
+            drawSimulation(currentTopic, val);
+        }
+
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawSimulation(topicId, param = 30) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "#090d16";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#38bdf8";
+            ctx.font = "16px sans-serif";
+            ctx.fillText(`Simülasyon: ${topicId.toUpperCase()} (Değer: ${param})`, 20, 30);
+
+            ctx.strokeStyle = "#60a5fa";
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(50, 280);
+            ctx.lineTo(550, 280);
+            ctx.stroke();
+
+            ctx.fillStyle = "#f43f5e";
+            ctx.fillRect(150 + param * 2, 240, 40, 40);
+        }
+
+        function toggleSmartBoardMode() {
+            document.body.classList.toggle('bg-slate-900');
+            alert("Akıllı Tahta Modu aktifleşti!");
+        }
+
+        window.onload = () => {
+            selectUnit('mekanik');
+        };
     </script>
 </body>
 </html>
-```
