@@ -1,0 +1,186 @@
+{
+  "kicker": "Fizik ezberlenmez, denenir.",
+  "quote": "“Her hareketin bir denklemi, her denklemin bir hikâyesi vardır.”",
+  "footer": "© Physics.Studio · TikTok, Instagram ve YouTube",
+  "features": [
+    {
+      "t": "▶ Dokun, değiştir, gör",
+      "d": "Hızı, kütleyi, açıyı sen belirle; sonuç ekranda hemen değişir.",
+      "hidden": false
+    },
+    {
+      "t": "∑ Canlı formüller",
+      "d": "Anlık değerler ve ilgili bağıntılar hep göz önünde.",
+      "hidden": false
+    },
+    {
+      "t": "🎬 15 saniyede konu",
+      "d": "Her konunun kısa, dikey bir özet videosu var.",
+      "hidden": false
+    }
+  ],
+  "social": {
+    "tiktok": "https://www.tiktok.com/@physics.studio0",
+    "instagram": "https://www.instagram.com/physics.studio0/",
+    "youtube": "https://www.youtube.com/@physics.studio0"
+  },
+  "theme": {
+    "accent": "#1f3a68",
+    "bg": "#faf7ef",
+    "wallpaper": true
+  },
+  "unitNames": {},
+  "unitOrder": [
+    "Kuvvet ve Hareket",
+    "Enerji, İş ve Momentum",
+    "Dönme ve Kütle Çekim",
+    "Isı ve Hal Değişimi",
+    "Titreşim ve Dalgalar",
+    "Optik",
+    "Elektrik ve Manyetizma",
+    "Modern Fizik"
+  ],
+  "hiddenUnits": [],
+  "cards": {
+    "grafik": {
+      "title": "Hareket Grafikleri (x–t, v–t, a–t)",
+      "desc": "Konum, hız, ivme grafikleri",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 0
+    },
+    "atis": {
+      "title": "Eğik Atış",
+      "desc": "Menzil, yükseklik ve uçuş süresi",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 1
+    },
+    "nehir": {
+      "title": "Bağıl Hareket ve Nehir Problemleri",
+      "desc": "Bileşke hız ve karşıya geçiş",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 2
+    },
+    "duzlem": {
+      "title": "Eğik Düzlem ve Newton Yasaları",
+      "desc": "Sürtünmeli eğik düzlemde hareket",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 3
+    },
+    "momentum": {
+      "title": "İtme ve Momentum (Çarpışma)",
+      "desc": "Esnek / esnek olmayan çarpışmalar",
+      "unit": "Enerji, İş ve Momentum",
+      "hidden": false,
+      "order": 4
+    },
+    "makara": {
+      "title": "Basit Makineler (Makaralar)",
+      "desc": "Sabit ve hareketli makaralar",
+      "unit": "Enerji, İş ve Momentum",
+      "hidden": false,
+      "order": 5
+    },
+    "cembersel": {
+      "title": "Düşey Çembersel Hareket",
+      "desc": "Çemberin üst ve alt noktalarında kuvvetler",
+      "unit": "Dönme ve Kütle Çekim",
+      "hidden": false,
+      "order": 6
+    },
+    "acisal": {
+      "title": "Açısal Momentum",
+      "desc": "Açısal momentumun korunumu",
+      "unit": "Dönme ve Kütle Çekim",
+      "hidden": false,
+      "order": 7
+    },
+    "kepler": {
+      "title": "Kepler Yasaları ve Kütle Çekim",
+      "desc": "Yörünge, vis-viva ve enerji",
+      "unit": "Dönme ve Kütle Çekim",
+      "hidden": false,
+      "order": 8
+    },
+    "hal": {
+      "title": "Isı ve Hal Değişimi",
+      "desc": "Isınma, erime, kaynama grafiği",
+      "unit": "Isı ve Hal Değişimi",
+      "hidden": false,
+      "order": 9
+    },
+    "bhh": {
+      "title": "Basit Harmonik Hareket (BHH)",
+      "desc": "Yay–kütle sistemi, x–t, v–t, a–t",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 10
+    },
+    "dalga": {
+      "title": "Yay Dalgaları ve Girişim",
+      "desc": "İki kaynaklı girişim deseni",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 11
+    },
+    "optik": {
+      "title": "Kırılma ve Tam Yansıma",
+      "desc": "Snell yasası ve kritik açı",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 12
+    },
+    "ayna": {
+      "title": "Çukur Aynada Görüntü Oluşumu",
+      "desc": "Işın çizimi, ayna denklemi, büyütme",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 13
+    },
+    "levha": {
+      "title": "Paralel Levhalar",
+      "desc": "Düzgün elektrik alan ve yüklü parçacık",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 14
+    },
+    "siga": {
+      "title": "Sığaçlar ve Kondansatörler",
+      "desc": "Sığa, yük, enerji ve gerilim",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 15
+    },
+    "manyetizma": {
+      "title": "Manyetik Kuvvet",
+      "desc": "Yüklü parçacık ve telde manyetik kuvvet",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 16
+    },
+    "induksiyon": {
+      "title": "İndüksiyon Akımı (Lenz)",
+      "desc": "Manyetik akı ve Lenz yasası",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 17
+    },
+    "rlc": {
+      "title": "Alternatif Akım ve RLC Rezonans",
+      "desc": "Empedans, rezonans, faz farkı",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 18
+    },
+    "foto": {
+      "title": "Fotoelektrik Olay",
+      "desc": "Eşik frekansı ve kinetik enerji",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 19
+    }
+  }
+}
