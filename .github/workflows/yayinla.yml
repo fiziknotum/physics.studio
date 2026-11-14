@@ -26,6 +26,29 @@ jobs:
           if [ -d icerik ]; then cp -r icerik _site/; fi
           cp google*.html _site/ 2>/dev/null || true
           test -f _site/index.html
+      - name: Site haritasini guncelle
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          from xml.sax.saxutils import escape
+          sm = '_site/sitemap.xml'
+          if os.path.exists(sm) and os.path.exists('icerik/konular.json'):
+              xml = open(sm, encoding='utf-8').read()
+              base = re.search(r'<loc>([^<]+)</loc>', xml).group(1)
+              data = json.load(open('icerik/konular.json', encoding='utf-8'))
+              add = ''
+              for e in data:
+                  if e.get('sim'):
+                      d = (e.get('added') or '')[:10]
+                      url = base + 'izle.html?konu=' + e['id']
+                      if url not in xml:
+                          lm = ('<lastmod>%s</lastmod>' % d) if d else ''
+                          add += '  <url><loc>%s</loc>%s</url>\n' % (escape(url), lm)
+              if add:
+                  xml = xml.replace('</urlset>', add + '</urlset>')
+                  open(sm, 'w', encoding='utf-8').write(xml)
+                  print('Haritaya eklenen sayfa sayisi:', add.count('<url>'))
+          PY
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
