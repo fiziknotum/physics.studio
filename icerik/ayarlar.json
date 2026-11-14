@@ -190,6 +190,15 @@
       "order": 20
     }
   },
+  "analytics": {
+    "goatcounter": "physicsstudio"
+  },
+  "newsletter": {
+    "buttondown": "",
+    "url": "",
+    "title": "",
+    "text": ""
+  },
   "contact": {
     "email": "physicsstudio.iletisim@gmail.com"
   },
