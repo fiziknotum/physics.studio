@@ -6,6 +6,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  actions: read
+concurrency:
+  group: pages
+  cancel-in-progress: true
 jobs:
   yayinla:
     runs-on: ubuntu-latest
@@ -13,13 +17,14 @@ jobs:
       name: github-pages
     steps:
       - uses: actions/checkout@v4
-      - name: ZIP'i ac
+      - name: Siteyi hazirla
         run: |
-          ls -la
           ZIP=$(ls -t *.zip | head -n 1)
           echo "Kullanilan ZIP: $ZIP"
           mkdir _site
           unzip -q "$ZIP" -d _site
+          if [ -d icerik ]; then cp -r icerik _site/; fi
+          cp google*.html _site/ 2>/dev/null || true
           test -f _site/index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
