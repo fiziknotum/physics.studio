@@ -6,17 +6,17 @@
     {
       "t": "▶ Dokun, değiştir, gör",
       "d": "Hızı, kütleyi, açıyı sen belirle; sonuç ekranda hemen değişir.",
-      "hidden": false
+      "hidden": true
     },
     {
       "t": "∑ Canlı formüller",
       "d": "Anlık değerler ve ilgili bağıntılar hep göz önünde.",
-      "hidden": false
+      "hidden": true
     },
     {
       "t": "🎬 15 saniyede konu",
       "d": "Her konunun kısa, dikey bir özet videosu var.",
-      "hidden": false
+      "hidden": true
     }
   ],
   "social": {
