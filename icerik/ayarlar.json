@@ -181,6 +181,42 @@
       "unit": "Modern Fizik",
       "hidden": false,
       "order": 19
+    },
+    "doppler": {
+      "title": "Doppler Olayı",
+      "desc": "Frekans kayması, Mach sayısı ve şok dalgası",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 20
+    },
+    "doppler-olayi-mwgfjcq4": {
+      "title": "Doppler Olayı",
+      "desc": "Frekans kayması, Mach sayısı ve şok dalgası",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 21
     }
+  },
+  "showStats": true,
+  "soon": {
+    "hidden": false,
+    "title": "Yakında",
+    "items": [
+      {
+        "t": "Konu anlatımları",
+        "d": "Animasyonlu, adım adım ders videoları",
+        "hidden": false
+      },
+      {
+        "t": "Online sınavlar",
+        "d": "Konu sonu testleri ve deneme sınavları",
+        "hidden": false
+      },
+      {
+        "t": "Soru çözümleri",
+        "d": "Çözümlü sorular ve ipuçları",
+        "hidden": false
+      }
+    ]
   }
 }
