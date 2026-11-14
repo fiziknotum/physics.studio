@@ -197,6 +197,7 @@
       "order": 21
     }
   },
+  "showSearch": true,
   "showStats": true,
   "soon": {
     "hidden": false,
