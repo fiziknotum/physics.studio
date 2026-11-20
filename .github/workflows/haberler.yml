@@ -21,60 +21,18 @@ jobs:
           Yalnızca başlık, kısa özet, kaynak adı ve bağlantı alınır; haberin tamamı kopyalanmaz.
           Elle eklenen kayıtlar ("manuel": true) silinmez. Standart kütüphane yeterli, ek paket gerekmez."""
           import json, re, sys, hashlib, html, datetime, urllib.request, xml.etree.ElementTree as ET, os
-          # ---- KAYNAKLAR: buradan düzenle (aktif: false ile kapat, anahtar ile kelime süzgeci, urls: sırayla denenir) ----
+          # ---- KAYNAKLAR: buradan düzenle (aktif: false ile kapat, anahtar ile kelime süzgeci, dil: tr/en, urls: sırayla denenir) ----
           KAYNAK_JSON = r'''{
            "toplam": 40,
            "kaynaklar": [
             {
-             "ad": "Bilim ve Teknik (TÜBİTAK)",
-             "urls": [
-              "https://bilimteknik.tubitak.gov.tr/feed",
-              "https://bilimteknik.tubitak.gov.tr/rss.xml"
-             ],
-             "etiket": "FİZİK",
-             "max": 4,
-             "aktif": true,
-             "anahtar": [
-              "fizik",
-              "kuantum",
-              "atom",
-              "parçacık",
-              "ışık",
-              "foton",
-              "elektron",
-              "lazer",
-              "kara delik",
-              "evren",
-              "uzay",
-              "gökbilim",
-              "astronomi",
-              "yerçekimi",
-              "manyetik",
-              "süper iletken",
-              "süperiletken",
-              "füzyon",
-              "nobel",
-              "cern",
-              "teleskop",
-              "nötron",
-              "proton",
-              "radyoaktif",
-              "nükleer",
-              "yıldız",
-              "gezegen",
-              "galaksi",
-              "bilim insan",
-              "araştırmacı",
-              "deney"
-             ]
-            },
-            {
              "ad": "Anadolu Ajansı",
+             "dil": "tr",
              "urls": [
               "https://www.aa.com.tr/tr/rss/default?cat=bilim-teknoloji"
              ],
              "etiket": "FİZİK",
-             "max": 4,
+             "max": 5,
              "aktif": true,
              "anahtar": [
               "fizik",
@@ -102,19 +60,68 @@ jobs:
               "proton",
               "radyoaktif",
               "nükleer",
-              "yıldız",
               "gezegen",
               "galaksi",
-              "bilim insan",
-              "araştırmacı",
-              "deney"
+              "kozmik",
+              "kuark",
+              "nötrino",
+              "higgs",
+              "plazma",
+              "enerji kaynağ",
+              "güneş enerjisi"
              ]
             },
             {
              "ad": "TRT Haber",
+             "dil": "tr",
              "urls": [
-              "https://www.trthaber.com/bilim_teknoloji_articles.rss",
-              "https://www.trthaber.com/bilim-teknoloji.rss"
+              "https://www.trthaber.com/bilim_teknoloji_articles.rss"
+             ],
+             "etiket": "FİZİK",
+             "max": 5,
+             "aktif": true,
+             "anahtar": [
+              "fizik",
+              "kuantum",
+              "atom",
+              "parçacık",
+              "ışık",
+              "foton",
+              "elektron",
+              "lazer",
+              "kara delik",
+              "evren",
+              "uzay",
+              "gökbilim",
+              "astronomi",
+              "yerçekimi",
+              "manyetik",
+              "süper iletken",
+              "süperiletken",
+              "füzyon",
+              "nobel",
+              "cern",
+              "teleskop",
+              "nötron",
+              "proton",
+              "radyoaktif",
+              "nükleer",
+              "gezegen",
+              "galaksi",
+              "kozmik",
+              "kuark",
+              "nötrino",
+              "higgs",
+              "plazma",
+              "enerji kaynağ",
+              "güneş enerjisi"
+             ]
+            },
+            {
+             "ad": "NTV",
+             "dil": "tr",
+             "urls": [
+              "https://www.ntv.com.tr/teknoloji.rss"
              ],
              "etiket": "FİZİK",
              "max": 4,
@@ -145,18 +152,22 @@ jobs:
               "proton",
               "radyoaktif",
               "nükleer",
-              "yıldız",
               "gezegen",
               "galaksi",
-              "bilim insan",
-              "araştırmacı",
-              "deney"
+              "kozmik",
+              "kuark",
+              "nötrino",
+              "higgs",
+              "plazma",
+              "enerji kaynağ",
+              "güneş enerjisi"
              ]
             },
             {
-             "ad": "NTV",
+             "ad": "Webtekno",
+             "dil": "tr",
              "urls": [
-              "https://www.ntv.com.tr/teknoloji.rss"
+              "https://www.webtekno.com/rss.xml"
              ],
              "etiket": "FİZİK",
              "max": 3,
@@ -187,58 +198,20 @@ jobs:
               "proton",
               "radyoaktif",
               "nükleer",
-              "yıldız",
               "gezegen",
               "galaksi",
-              "bilim insan",
-              "araştırmacı",
-              "deney"
-             ]
-            },
-            {
-             "ad": "Webtekno",
-             "urls": [
-              "https://www.webtekno.com/rss.xml"
-             ],
-             "etiket": "FİZİK",
-             "max": 2,
-             "aktif": true,
-             "anahtar": [
-              "fizik",
-              "kuantum",
-              "atom",
-              "parçacık",
-              "ışık",
-              "foton",
-              "elektron",
-              "lazer",
-              "kara delik",
-              "evren",
-              "uzay",
-              "gökbilim",
-              "astronomi",
-              "yerçekimi",
-              "manyetik",
-              "süper iletken",
-              "süperiletken",
-              "füzyon",
-              "nobel",
-              "cern",
-              "teleskop",
-              "nötron",
-              "proton",
-              "radyoaktif",
-              "nükleer",
-              "yıldız",
-              "gezegen",
-              "galaksi",
-              "bilim insan",
-              "araştırmacı",
-              "deney"
+              "kozmik",
+              "kuark",
+              "nötrino",
+              "higgs",
+              "plazma",
+              "enerji kaynağ",
+              "güneş enerjisi"
              ]
             },
             {
              "ad": "DonanımHaber",
+             "dil": "tr",
              "urls": [
               "https://www.donanimhaber.com/rss/tum/"
              ],
@@ -271,16 +244,20 @@ jobs:
               "proton",
               "radyoaktif",
               "nükleer",
-              "yıldız",
               "gezegen",
               "galaksi",
-              "bilim insan",
-              "araştırmacı",
-              "deney"
+              "kozmik",
+              "kuark",
+              "nötrino",
+              "higgs",
+              "plazma",
+              "enerji kaynağ",
+              "güneş enerjisi"
              ]
             },
             {
              "ad": "Phys.org",
+             "dil": "en",
              "urls": [
               "https://phys.org/rss-feed/physics-news/"
              ],
@@ -290,6 +267,7 @@ jobs:
             },
             {
              "ad": "ScienceDaily",
+             "dil": "en",
              "urls": [
               "https://www.sciencedaily.com/rss/matter_energy/physics.xml"
              ],
@@ -310,6 +288,8 @@ jobs:
                   try: return datetime.datetime.strptime(s, f).strftime('%Y-%m-%d')
                   except ValueError: pass
               return datetime.date.today().isoformat()
+          def tlower(t): return (t or '').replace('İ', 'i').replace('I', 'ı').lower()
+          def eslesir(metin, kelimeler): return any(re.search(r'(?<!\w)' + re.escape(a), metin) for a in kelimeler)
           def etiket(e): return e.tag.rsplit('}', 1)[-1]
           def oku(k):
               req = urllib.request.Request(k['url'], headers={'User-Agent': UA, 'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*', 'Accept-Language': 'tr,en;q=0.8'})
@@ -334,7 +314,7 @@ jobs:
               yeni = {}
               for k in cfg.get('kaynaklar', []):
                   if not k.get('aktif', True): continue
-                  anah = [a.lower() for a in k.get('anahtar', [])]
+                  anah = [tlower(a) for a in k.get('anahtar', [])]
                   adresler = k.get('urls') or [k['url']]
                   alinan = None; hata = ''
                   for u in adresler:
@@ -343,7 +323,8 @@ jobs:
                   if alinan is None: print('HATA   ', k['ad'], '->', hata, file=sys.stderr); continue
                   kabul = []
                   for x in alinan:
-                      if anah and not any(a in (x['title'] + ' ' + x['text']).lower() for a in anah): continue
+                      if anah and not eslesir(tlower(x['title'] + ' ' + x['text']), anah): continue
+                      x['lang'] = k.get('dil', 'tr')
                       kabul.append(x)
                   for x in kabul[:k.get('max', 5)]: yeni[x['id']] = x
                   print('TAMAM  %s: %d öğe okundu, %d süzgeçten geçti, %d eklendi (%s)' % (k['ad'], len(alinan), len(kabul), min(len(kabul), k.get('max', 5)), kullanilan))
@@ -364,4 +345,6 @@ jobs:
           git config user.email "haber-botu@users.noreply.github.com"
           git add icerik/haberler.json
           git diff --cached --quiet || (git commit -m "Haberler güncellendi [skip ci]" && git push)
+
+haberler güncellendi [skip ci]" && git push)
 
