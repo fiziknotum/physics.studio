@@ -2,23 +2,7 @@
   "kicker": "Fizik ezberlenmez, denenir.",
   "quote": "“Her hareketin bir denklemi, her denklemin bir hikâyesi vardır.”",
   "footer": "© Physics.Studio · TikTok, Instagram ve YouTube",
-  "features": [
-    {
-      "t": "▶ Dokun, değiştir, gör",
-      "d": "Hızı, kütleyi, açıyı sen belirle; sonuç ekranda hemen değişir.",
-      "hidden": true
-    },
-    {
-      "t": "∑ Canlı formüller",
-      "d": "Anlık değerler ve ilgili bağıntılar hep göz önünde.",
-      "hidden": true
-    },
-    {
-      "t": "🎬 15 saniyede konu",
-      "d": "Her konunun kısa, dikey bir özet videosu var.",
-      "hidden": true
-    }
-  ],
+  "features": [],
   "social": {
     "tiktok": "https://www.tiktok.com/@physics.studio0",
     "instagram": "https://www.instagram.com/physics.studio0/",
@@ -38,7 +22,8 @@
     "Titreşim ve Dalgalar",
     "Optik",
     "Elektrik ve Manyetizma",
-    "Modern Fizik"
+    "Modern Fizik",
+    "Meraklısına"
   ],
   "hiddenUnits": [],
   "cards": {
@@ -188,6 +173,468 @@
       "unit": "Titreşim ve Dalgalar",
       "hidden": false,
       "order": 20
+    },
+    "fizikbilimi": {
+      "title": "Fizik Bilimi ve Alt Dalları",
+      "desc": "Alt dallar, bilimsel yöntem ve SI",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 21
+    },
+    "bilimadamlari": {
+      "title": "Bilim İnsanları ve Fizik Tarihi",
+      "desc": "Önemli bilim insanları ve zaman çizelgesi",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 22
+    },
+    "ozkutle": {
+      "title": "Madde ve Özkütle",
+      "desc": "m/V, m–V grafiği ve yüzme",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 23
+    },
+    "kilcallik": {
+      "title": "Yapışma, Birbirini Tutma ve Kılcallık",
+      "desc": "Adezyon, kohezyon ve kılcal yükselme",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 24
+    },
+    "hareket": {
+      "title": "Hareket Kavramları",
+      "desc": "Yol, yer değiştirme, hız ve sürat",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 25
+    },
+    "serbest": {
+      "title": "Serbest Düşme ve Düşey Atış",
+      "desc": "Düşey atış, zirve ve çarpma hızı",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 26
+    },
+    "limithiz": {
+      "title": "Limit Hız",
+      "desc": "Hava direnci ve paraşüt",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 27
+    },
+    "temelkuvvet": {
+      "title": "Doğadaki Temel Kuvvetler",
+      "desc": "Dört temel kuvvet ve menzilleri",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 28
+    },
+    "newton": {
+      "title": "Newton'un İkinci Yasası",
+      "desc": "Net kuvvet, kütle, ivme ve sürtünme",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 29
+    },
+    "kaldirma": {
+      "title": "Kaldırma Kuvveti",
+      "desc": "Yüzme, batma ve batan hacim oranı",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 30
+    },
+    "yatay": {
+      "title": "Yatay Atış",
+      "desc": "Uçuş süresi, menzil ve bağımsız hareketler",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 31
+    },
+    "vektor": {
+      "title": "Vektörler ve Bileşke Kuvvet",
+      "desc": "Paralelkenar yöntemi ve bileşenler",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 32
+    },
+    "hidrostatik": {
+      "title": "Sıvı Basıncı (Hidrostatik)",
+      "desc": "P = ρgh ve birleşik kaplar",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 33
+    },
+    "acikhava": {
+      "title": "Açık Hava ve Gaz Basıncı",
+      "desc": "Torricelli, barometre ve manometre",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 34
+    },
+    "bernoulli": {
+      "title": "Bernoulli İlkesi",
+      "desc": "Süreklilik ve basınç–hız ilişkisi",
+      "unit": "Kuvvet ve Hareket",
+      "hidden": false,
+      "order": 35
+    },
+    "isenerji": {
+      "title": "İş, Enerji ve Güç",
+      "desc": "İş, kinetik enerji ve güç",
+      "unit": "Enerji, İş ve Momentum",
+      "hidden": false,
+      "order": 36
+    },
+    "verim": {
+      "title": "Verim",
+      "desc": "Enerji kaybı ve seri makineler",
+      "unit": "Enerji, İş ve Momentum",
+      "hidden": false,
+      "order": 37
+    },
+    "enerjikaynak": {
+      "title": "Enerji Kaynakları",
+      "desc": "Yenilenebilir kaynaklar ve CO₂",
+      "unit": "Enerji, İş ve Momentum",
+      "hidden": false,
+      "order": 38
+    },
+    "mek": {
+      "title": "Mekanik Enerjinin Korunumu",
+      "desc": "Potansiyel–kinetik enerji dönüşümü",
+      "unit": "Enerji, İş ve Momentum",
+      "hidden": false,
+      "order": 39
+    },
+    "kutlecekim": {
+      "title": "Kütle Çekim Kuvveti",
+      "desc": "Çekim kuvveti, g ve uzaklık",
+      "unit": "Dönme ve Kütle Çekim",
+      "hidden": false,
+      "order": 40
+    },
+    "tork": {
+      "title": "Tork ve Denge",
+      "desc": "Kuvvet kolu ve dönme dengesi",
+      "unit": "Dönme ve Kütle Çekim",
+      "hidden": false,
+      "order": 41
+    },
+    "kepler3d": {
+      "title": "Gezegen Yörüngesi (3B Kepler)",
+      "desc": "Elips yörünge ve eşit alanlar (3B)",
+      "unit": "Dönme ve Kütle Çekim",
+      "hidden": false,
+      "order": 42
+    },
+    "iletim": {
+      "title": "Isı İletim Yolları",
+      "desc": "İletim, konveksiyon, ışıma ve yalıtım",
+      "unit": "Isı ve Hal Değişimi",
+      "hidden": false,
+      "order": 43
+    },
+    "genlesme": {
+      "title": "Isıl Genleşme",
+      "desc": "Boyca genleşme ve çift metal",
+      "unit": "Isı ve Hal Değişimi",
+      "hidden": false,
+      "order": 44
+    },
+    "izdenge": {
+      "title": "Isıl Denge",
+      "desc": "Denge sıcaklığı ve ısı alışverişi",
+      "unit": "Isı ve Hal Değişimi",
+      "hidden": false,
+      "order": 45
+    },
+    "kirinim": {
+      "title": "Dalgalarda Kırınım",
+      "desc": "Yarık genişliği, dalga boyu ve yayılma",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 46
+    },
+    "emdalga": {
+      "title": "Elektromanyetik Dalgalar ve Spektrum",
+      "desc": "Spektrum, frekans ve foton enerjisi",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 47
+    },
+    "sarkac": {
+      "title": "Basit Sarkaç",
+      "desc": "Periyot, uzunluk ve enerji dönüşümü",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 48
+    },
+    "duran": {
+      "title": "Duran Dalgalar",
+      "desc": "Harmonikler, düğüm ve karın",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 49
+    },
+    "desibel": {
+      "title": "Ses Şiddeti ve Desibel",
+      "desc": "Şiddet, uzaklık ve desibel",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 50
+    },
+    "dalgakirilma": {
+      "title": "Su Dalgalarında Kırılma",
+      "desc": "Derinlik, hız ve kırılma açısı",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 51
+    },
+    "giris3d": {
+      "title": "Su Yüzeyinde Girişim (3B)",
+      "desc": "Yol farkı, katar ve düğüm (3B)",
+      "unit": "Titreşim ve Dalgalar",
+      "hidden": false,
+      "order": 52
+    },
+    "golge": {
+      "title": "Gölge",
+      "desc": "Tam gölge, yarı gölge ve tutulma",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 53
+    },
+    "aydinlanma": {
+      "title": "Aydınlanma Şiddeti",
+      "desc": "Işık şiddeti ve ters kare yasası",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 54
+    },
+    "yansima": {
+      "title": "Yansıma ve Düzlem Ayna",
+      "desc": "Yansıma yasası ve görüntü oluşumu",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 55
+    },
+    "mercek": {
+      "title": "İnce ve Kalın Kenarlı Mercekler",
+      "desc": "Yakınsak/ıraksak mercek, ışın çizimi",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 56
+    },
+    "young": {
+      "title": "Young Çift Yarık Deneyi",
+      "desc": "Girişim, yol farkı ve saçak aralığı",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 57
+    },
+    "prizma": {
+      "title": "Prizma ve Işığın Dağılması",
+      "desc": "Sapma açısı ve ışığın dağılması",
+      "unit": "Optik",
+      "hidden": false,
+      "order": 58
+    },
+    "yukler": {
+      "title": "Elektrik Yükleri ve Yükleme Çeşitleri",
+      "desc": "Sürtünme, dokunma, etki ve elektroskop",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 59
+    },
+    "miknatis": {
+      "title": "Mıknatıs ve Manyetik Alan",
+      "desc": "Kutuplar, alan çizgileri ve pusula",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 60
+    },
+    "devre": {
+      "title": "Ohm Yasası ve Devreler",
+      "desc": "Seri–paralel dirençler, akım ve güç",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 61
+    },
+    "coulomb": {
+      "title": "Coulomb Yasası",
+      "desc": "Yükler arası kuvvet ve alan çizgileri",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 62
+    },
+    "potansiyel": {
+      "title": "Elektriksel Potansiyel",
+      "desc": "V = kQ/r, potansiyel enerji ve iş",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 63
+    },
+    "trafo": {
+      "title": "Transformatör",
+      "desc": "Sarım sayısı, gerilim, akım ve güç",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 64
+    },
+    "kirchhoff": {
+      "title": "Kirchhoff Yasaları",
+      "desc": "Düğüm ve çevre yasası",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 65
+    },
+    "ac": {
+      "title": "Alternatif Akım ve Etkin Değerler",
+      "desc": "Tepe değeri, etkin değer ve ortalama güç",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 66
+    },
+    "alan3d": {
+      "title": "Elektrik Alan Çizgileri (3B)",
+      "desc": "Alan çizgileri ve potansiyel (3B)",
+      "unit": "Elektrik ve Manyetizma",
+      "hidden": false,
+      "order": 67
+    },
+    "buyukpatlama": {
+      "title": "Büyük Patlama ve Evrenin Oluşumu",
+      "desc": "Hubble, kozmik fon ışıması ve evre",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 68
+    },
+    "standartmodel": {
+      "title": "Standart Model ve Temel Parçacıklar",
+      "desc": "Kuarklar, leptonlar ve bozonlar",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 69
+    },
+    "siyahcisim": {
+      "title": "Siyah Cisim Işıması ve Kuantum",
+      "desc": "Wien, Stefan–Boltzmann ve Planck",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 70
+    },
+    "bohr": {
+      "title": "Bohr Atom Modeli",
+      "desc": "Enerji seviyeleri, foton ve spektrum",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 71
+    },
+    "radyoaktif": {
+      "title": "Radyoaktif Bozunma",
+      "desc": "Yarı ömür ve kalan çekirdek sayısı",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 72
+    },
+    "gorelilik": {
+      "title": "Özel Görelilik: Zaman Genişlemesi",
+      "desc": "Işık saati ve Lorentz çarpanı",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 73
+    },
+    "debroglie": {
+      "title": "Madde Dalgaları (de Broglie)",
+      "desc": "λ = h/p ve elektron dalgası",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 74
+    },
+    "baglanma": {
+      "title": "Nükleer Bağlanma Enerjisi",
+      "desc": "Kütle kusuru ve nükleon başına enerji",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 75
+    },
+    "yariiletken": {
+      "title": "Yarı İletkenler",
+      "desc": "Bant, katkılama ve p–n eklemi",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 76
+    },
+    "superiletken": {
+      "title": "Süper İletkenler",
+      "desc": "Kritik sıcaklık ve Meissner etkisi",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 77
+    },
+    "nano": {
+      "title": "Nanoteknoloji",
+      "desc": "Nanometre ölçeği ve yüzey atomları",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 78
+    },
+    "lazer": {
+      "title": "Lazer Işınları",
+      "desc": "Uyarılmış emisyon ve rezonatör",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 79
+    },
+    "goruntuleme": {
+      "title": "Görüntüleme Teknolojileri",
+      "desc": "Röntgen, MR, ultrason ve PET",
+      "unit": "Modern Fizik",
+      "hidden": false,
+      "order": 80
+    },
+    "jiroskop3d": {
+      "title": "Jiroskop ve Presesyon (3B)",
+      "desc": "Açısal momentum ve presesyon (3B)",
+      "unit": "Meraklısına",
+      "hidden": false,
+      "order": 81
+    },
+    "gaz": {
+      "title": "Gaz Yasaları",
+      "desc": "PV = nRT, izoterm ve basınç–sıcaklık",
+      "unit": "Meraklısına",
+      "hidden": false,
+      "order": 82
+    },
+    "carnot": {
+      "title": "Isı Makinesi ve Carnot Çevrimi",
+      "desc": "Verim ve Carnot çevrimi",
+      "unit": "Meraklısına",
+      "hidden": false,
+      "order": 83
+    },
+    "goz": {
+      "title": "Göz ve Görme Kusurları",
+      "desc": "Miyop, hipermetrop ve gözlük camı",
+      "unit": "Meraklısına",
+      "hidden": false,
+      "order": 84
+    },
+    "rc": {
+      "title": "RC Devresi: Şarj ve Boşalma",
+      "desc": "Zaman sabiti, şarj ve boşalma",
+      "unit": "Meraklısına",
+      "hidden": false,
+      "order": 85
+    },
+    "manyetik3d": {
+      "title": "Manyetik Alanda Helis Hareket (3B)",
+      "desc": "Helis hareket, yarıçap ve hatve (3B)",
+      "unit": "Meraklısına",
+      "hidden": false,
+      "order": 86
     }
   },
   "analytics": {
@@ -200,7 +647,7 @@
     "text": ""
   },
   "contact": {
-    "email": "physicsstudio.iletisim@gmail.com"
+    "email": "iletisim@physicsstudio.com.tr"
   },
   "about": "Physics.Studio, fizik eğitimi alanında çalışan bir eğitim projesidir. Hacettepe Üniversitesi'nde fizik eğitimi üzerine çalışıyoruz ve amacımız, fiziği ezberlenen bir ders olmaktan çıkarıp görerek ve deneyerek öğrenilen bir deneyime dönüştürmek.\n\nHer konuyu etkileşimli bir simülasyonla anlatıyoruz: parametreleri değiştirirsin, çizim, analiz ve grafikler anında güncellenir. Formüller olayın içinde anlam kazanır.\n\nHedefimiz; lise öğrencilerine, sınava hazırlananlara ve öğretmenlere anlaşılır, doğru ve ücretsiz erişilebilir kaynaklar sunmak. Yeni konular, konu anlatımı videoları, online sınavlar ve soru çözümleri üzerinde çalışmaya devam ediyoruz.",
   "showSearch": true,
@@ -208,22 +655,6 @@
   "soon": {
     "hidden": false,
     "title": "Yakında",
-    "items": [
-      {
-        "t": "Konu anlatımları",
-        "d": "Animasyonlu, adım adım ders videoları",
-        "hidden": false
-      },
-      {
-        "t": "Online sınavlar",
-        "d": "Konu sonu testleri ve deneme sınavları",
-        "hidden": false
-      },
-      {
-        "t": "Soru çözümleri",
-        "d": "Çözümlü sorular ve ipuçları",
-        "hidden": false
-      }
-    ]
+    "items": []
   }
 }
