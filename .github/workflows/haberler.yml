@@ -346,5 +346,3 @@ jobs:
           git add icerik/haberler.json
           git diff --cached --quiet || (git commit -m "Haberler güncellendi [skip ci]" && git push)
 
-haberler güncellendi [skip ci]" && git push)
-
