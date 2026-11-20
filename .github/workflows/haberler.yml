@@ -9,15 +9,94 @@ jobs:
   haberler:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - name: Haberleri çek
-        run: python scripts/haber_cek.py
+        run: |
+          python3 - <<'PY'
+          #!/usr/bin/env python3
+          """Fizik haberlerini RSS/Atom kaynaklarından çekip icerik/haberler.json dosyasına yazar.
+          Yalnızca başlık, kısa özet, kaynak adı ve bağlantı alınır; haberin tamamı kopyalanmaz.
+          Elle eklenen kayıtlar ("manuel": true) silinmez. Standart kütüphane yeterli, ek paket gerekmez."""
+          import json, re, sys, hashlib, html, datetime, urllib.request, xml.etree.ElementTree as ET, os
+          # ---- KAYNAKLAR: buradan düzenle (aktif: false ile kapat, anahtar ile kelime süzgeci) ----
+          KAYNAK_JSON = r'''{
+           "toplam": 30,
+           "kaynaklar": [
+            {
+             "ad": "Phys.org",
+             "url": "https://phys.org/rss-feed/physics-news/",
+             "etiket": "FİZİK",
+             "max": 4,
+             "aktif": true
+            },
+            {
+             "ad": "ScienceDaily",
+             "url": "https://www.sciencedaily.com/rss/matter_energy/physics.xml",
+             "etiket": "FİZİK",
+             "max": 4,
+             "aktif": true
+            }
+           ]
+          }'''
+          OUT = os.environ.get('HABER_CIKTI', 'icerik/haberler.json')
+          UA = 'Mozilla/5.0 (compatible; PhysicsStudioHaber/1.0; +https://physicsstudio.com.tr)'
+          def temiz(t, n=0):
+              t = re.sub(r'<[^>]+>', ' ', html.unescape(t or '')); t = re.sub(r'\s+', ' ', t).strip()
+              return (t[:n].rsplit(' ', 1)[0] + '…') if n and len(t) > n else t
+          def tarih(s):
+              s = (s or '').strip()
+              for f in ('%a, %d %b %Y %H:%M:%S %z', '%a, %d %b %Y %H:%M:%S %Z', '%Y-%m-%dT%H:%M:%S%z', '%Y-%m-%dT%H:%M:%SZ', '%Y-%m-%d'):
+                  try: return datetime.datetime.strptime(s, f).strftime('%Y-%m-%d')
+                  except ValueError: pass
+              return datetime.date.today().isoformat()
+          def etiket(e): return e.tag.rsplit('}', 1)[-1]
+          def oku(k):
+              req = urllib.request.Request(k['url'], headers={'User-Agent': UA})
+              with urllib.request.urlopen(req, timeout=25) as r: kok = ET.fromstring(r.read())
+              out = []
+              for it in kok.iter():
+                  if etiket(it) not in ('item', 'entry'): continue
+                  d = {etiket(c): c for c in it}
+                  baslik = temiz(d['title'].text if 'title' in d else '')
+                  link = ''
+                  if 'link' in d: link = (d['link'].get('href') or d['link'].text or '').strip()
+                  if not re.match(r'^https?://', link) or not baslik: continue
+                  ozet = temiz((d.get('description') if 'description' in d else d.get('summary') if 'summary' in d else d.get('content')).text if any(x in d for x in ('description', 'summary', 'content')) else '', 140)
+                  tr = d['pubDate'].text if 'pubDate' in d else d['published'].text if 'published' in d else d['updated'].text if 'updated' in d else ''
+                  out.append({'id': hashlib.sha1(link.encode()).hexdigest()[:10], 'date': tarih(tr), 'tag': k.get('etiket', 'FİZİK'), 'title': baslik, 'text': ozet, 'url': link, 'source': k['ad']})
+              return out[:k.get('max', 5)]
+          def main():
+              cfg = json.loads(open(os.environ['HABER_KAYNAK'], encoding='utf-8').read()) if os.environ.get('HABER_KAYNAK') else json.loads(KAYNAK_JSON)
+              try: mevcut = json.load(open(OUT, encoding='utf-8'))
+              except Exception: mevcut = []
+              manuel = [x for x in mevcut if x.get('manuel')]; eski_oto = {x['id']: x for x in mevcut if not x.get('manuel')}
+              yeni = {}
+              for k in cfg.get('kaynaklar', []):
+                  if not k.get('aktif', True): continue
+                  anah = [a.lower() for a in k.get('anahtar', [])]
+                  try:
+                      for x in oku(k):
+                          if anah and not any(a in (x['title'] + ' ' + x['text']).lower() for a in anah): continue
+                          yeni[x['id']] = x
+                  except Exception as e: print('KAYNAK HATASI', k['ad'], repr(e)[:160], file=sys.stderr)
+              birlesik = {**eski_oto, **yeni}
+              oto = sorted(birlesik.values(), key=lambda x: x['date'], reverse=True)[:cfg.get('toplam', 30)]
+              son = sorted(manuel + oto, key=lambda x: x['date'], reverse=True)
+              yeni_json = json.dumps(son, ensure_ascii=False, indent=1) + '\n'
+              try: eski_json = open(OUT, encoding='utf-8').read()
+              except Exception: eski_json = ''
+              if yeni_json != eski_json:
+                  os.makedirs(os.path.dirname(os.path.abspath(OUT)), exist_ok=True); open(OUT, 'w', encoding='utf-8').write(yeni_json); print('güncellendi:', len(son), 'kayıt')
+              else: print('değişiklik yok')
+          if __name__ == '__main__': main()
+          PY
       - name: Değişiklik varsa kaydet
         run: |
           git config user.name "haber-botu"
           git config user.email "haber-botu@users.noreply.github.com"
           git add icerik/haberler.json
-          git diff --cached --quiet || (git commit -m "Haberler güncellendi" && git push)
+          git diff --cached --quiet || (git commit -m "Haberler güncellendi [skip ci]" && git push)
+
