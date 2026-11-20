@@ -26,7 +26,8 @@
   "title": "The secret of 'strange metals' may lie in quantum statistics, not collisions",
   "text": "In an ordinary metal, electrons behave like well-defined particles that occasionally bump into imperfections or vibrations of the crystal.…",
   "url": "https://phys.org/news/2026-11-secret-strange-metals-quantum-statistics.html",
-  "source": "Phys.org"
+  "source": "Phys.org",
+  "lang": "en"
  },
  {
   "id": "9f600104c5",
@@ -35,7 +36,8 @@
   "title": "Unusual magnetism revealed in a simple metal's electron spins",
   "text": "Magnets are usually associated with a familiar property: they produce a magnetic field because the magnetic moments of their electrons…",
   "url": "https://phys.org/news/2026-11-unusual-magnetism-revealed-simple-metal.html",
-  "source": "Phys.org"
+  "source": "Phys.org",
+  "lang": "en"
  },
  {
   "id": "25b27a09eb",
@@ -64,7 +66,8 @@
   "title": "Physicists use laser light to unlock a crystal's hidden electrical powers",
   "text": "Scientists have discovered how to use flashes of laser light to organize tiny electrical regions inside a crystal, solving a decades-old…",
   "url": "https://www.sciencedaily.com/releases/2026/11/261112230500.htm",
-  "source": "ScienceDaily"
+  "source": "ScienceDaily",
+  "lang": "en"
  },
  {
   "id": "39136d85fc",
@@ -73,45 +76,8 @@
   "title": "Scientists capture electrons making seemingly impossible quantum jumps",
   "text": "Scientists have captured electrons making seemingly impossible jumps across forbidden energy gaps in graphene, with some transitions…",
   "url": "https://www.sciencedaily.com/releases/2026/11/261112025523.htm",
-  "source": "ScienceDaily"
- },
- {
-  "id": "078869becc",
-  "date": "2026-11-20",
-  "tag": "FİZİK",
-  "title": "\"Ay toprağında\" patates hasadı",
-  "text": "Dünya'nın en önemli tarım ürünlerinden patates, yakın gelecekte ay görevleri için de kritik hale gelebilir. Bilim insanları simüle edilmiş…",
-  "url": "https://www.ntv.com.tr/teknoloji/ay-topraginda-patates-hasadi-1751692",
-  "source": "NTV"
- },
- {
-  "id": "685967a6fd",
-  "date": "2026-11-20",
-  "tag": "FİZİK",
-  "title": "vivo X500 Pro Max, profesyonel fotoğrafçılarla Türkiye’de tanıtıldı",
-  "text": "vivo, X500 Pro Max modelini FOTON iş birliğiyle İstanbul'da düzenlediği ve 30 profesyonel fotoğrafçının katıldığı özel bir etkinlikle…",
-  "url": "https://www.webtekno.com/vivo-x500-pro-max-turkiye-de-tanitildi-h229255.html",
-  "source": "Webtekno",
-  "lang": "tr"
- },
- {
-  "id": "c1a72ba99d",
-  "date": "2026-11-20",
-  "tag": "FİZİK",
-  "title": "Ütü Yapmaktan Nefret Edenler Buraya: Kıyafetlerdeki Kırışıklıkları %50 Azaltan Teknoloji",
-  "text": "Ev işleri arasında bir anket yapsak, muhtemelen herkesin en az sevdiği, en çok ertelediği ve yaparken en çok yorulduğu iş açık ara ütü…",
-  "url": "https://www.webtekno.com/utu-yapmaktan-nefret-edenler-buraya-kiyafetlerdeki-kirisikliklari-50-azaltan-teknoloji-h228631.html",
-  "source": "Webtekno"
- },
- {
-  "id": "25cdb9e7b1",
-  "date": "2026-11-20",
-  "tag": "FİZİK",
-  "title": "Yeni Hyundai Elantra tanıtıldı: 157 beygirlik hibrit motor",
-  "text": "Hyundai Elantra, büyüyen gövdesi, 157 beygirlik hibrit motoru ve Pleos Connect multimedya sistemiyle tanıtıldı. Fiziksel tuşların korunduğu…",
-  "url": "https://www.donanimhaber.com/yeni-hyundai-elantra-tanitildi-157-beygirlik-hibrit-motor--213161",
-  "source": "DonanımHaber",
-  "lang": "tr"
+  "source": "ScienceDaily",
+  "lang": "en"
  },
  {
   "id": "714fb350e8",
@@ -134,22 +100,14 @@
   "lang": "tr"
  },
  {
-  "id": "1862a0d53d",
+  "id": "34cc8e6806",
   "date": "2026-11-18",
   "tag": "FİZİK",
-  "title": "Evlerdeki teknolojik cihazların elektromanyetik etkilerine karşı bilinçli kullanım uyarısı",
-  "text": "Prof. Dr. Süleyman Daşdağ, cep telefonu, tablet, televizyon ve saç kurutma makinesi gibi günlük yaşamda sık kullanılan birçok cihazın…",
-  "url": "https://www.aa.com.tr/tr/bilim-teknoloji/evlerdeki-teknolojik-cihazlarin-elektromanyetik-etkilerine-karsi-bilincli-kullanim-uyarisi/4128410",
-  "source": "Anadolu Ajansı"
- },
- {
-  "id": "d346343f46",
-  "date": "2026-11-17",
-  "tag": "FİZİK",
-  "title": "Küresel internet sitelerine siber saldırıyla zararlı kod yerleştirildi",
-  "text": "Siber güvenlik araştırmacıları, siber saldırganların kripto para ve kredi kartı bilgilerini çalmak amacıyla dünyanın en çok ziyaret edilen…",
-  "url": "https://www.aa.com.tr/tr/bilim-teknoloji/kuresel-internet-sitelerine-siber-saldiriyla-zararli-kod-yerlestirildi/4127728",
-  "source": "Anadolu Ajansı"
+  "title": "GEZGİN Uydu Görüntü Portalı üzerinden iklim değişikliğinin etkileri de gözlemlenebiliyor",
+  "text": "Bakan Kacır, Türkiye'nin Gerçek Zamanlı Görüntü İşleme Portalı'nın (GEZGİN) tarım alanlarından bitki örtüsüne, su kaynaklarından arazi…",
+  "url": "https://www.aa.com.tr/tr/bilim-teknoloji/gezgin-uydu-goruntu-portali-uzerinden-iklim-degisikliginin-etkileri-de-gozlemlenebiliyor/4129343",
+  "source": "Anadolu Ajansı",
+  "lang": "tr"
  },
  {
   "id": "af46e9ae6e",
@@ -160,15 +118,6 @@
   "url": "https://www.trthaber.com/haber/bilim-teknoloji/turk-muhendisler-akkuyu-ngsde-ilk-reaktor-icin-gun-sayiyor-963530.html",
   "source": "TRT Haber",
   "lang": "tr"
- },
- {
-  "id": "09ad5d90f8",
-  "date": "2026-11-17",
-  "tag": "FİZİK",
-  "title": "Saç çıkartan tarak icat edildi. 28 günde yüzde 98'i geri çıkıyor",
-  "text": "Bilim insanları, 28 günde saçların yüzde 97,85 oranında yeniden çıkışını sağlayan bir tedavi yöntemi üzerinde çalışıyor.",
-  "url": "https://www.ntv.com.tr/teknoloji/sac-cikartan-tarak-icat-edildi-28-gunde-yuzde-98i-geri-cikiyor-1751355",
-  "source": "NTV"
  },
  {
   "id": "574ba54f9b",
@@ -191,16 +140,6 @@
   "lang": "tr"
  },
  {
-  "id": "54c02ffe4c",
-  "date": "2026-11-10",
-  "tag": "FİZİK",
-  "title": "COP31'de Doğuş Teknoloji'ye ödül: Dönüşen teknolojik atıklar genç kızların eğitimlerine destek oldu",
-  "text": "Doğuş Teknoloji, elektronik atıkların geri dönüşümüyle genç kızların eğitimine kaynak yaratan projesiyle COP 31 Zirvesi'nde ödüle layık…",
-  "url": "https://www.ntv.com.tr/teknoloji/video-cop31de-dogus-teknolojiye-odul-donusen-teknolojik-atiklar-genc-kizlarin-egitimlerine-destek-oldu-1750309",
-  "source": "NTV",
-  "lang": "tr"
- },
- {
   "id": "7a992fb21a",
   "date": "2026-11-08",
   "tag": "FİZİK",
@@ -218,6 +157,26 @@
   "text": "Astronotlar Anil Menon ve Joshua Kutryk, 6 saat 59 dakikalık uzay yürüyüşüyle Uluslararası Uzay İstasyonu'nun son açılır güneş paneli…",
   "url": "https://www.ntv.com.tr/teknoloji/iki-astronot-7-saatlik-uzay-yuruyusu-yapti-1749593",
   "source": "NTV",
+  "lang": "tr"
+ },
+ {
+  "id": "f99aad8a08",
+  "date": "2026-11-04",
+  "tag": "FİZİK",
+  "title": "Yapay zeka destekli yerli uydu GEZGİN1 için hedef 2028",
+  "text": "Türkiye, milli uydu teknolojileri alanındaki çalışmalarına GEZGİN-1 ile devam ediyor. 75 kilogramın altında olması hedeflenen yerli mikro…",
+  "url": "https://www.trthaber.com/haber/bilim-teknoloji/yapay-zeka-destekli-yerli-uydu-gezgin-1-icin-hedef-2028-962230.html",
+  "source": "TRT Haber",
+  "lang": "tr"
+ },
+ {
+  "id": "e668344e0a",
+  "date": "2026-11-02",
+  "tag": "FİZİK",
+  "title": "Bakan Kacır yeni İMECE uyduları için tarih verdi",
+  "text": "Sanayi ve Teknoloji Bakanı Kacır, TÜRKSAT 7A uydusu için çalışmalara başladıklarını, yer gözlem uydu takımının üyeleri İMECE-2'nin 2027'de,…",
+  "url": "https://www.trthaber.com/haber/bilim-teknoloji/bakan-kacir-yeni-imece-uydulari-icin-tarih-verdi-961961.html",
+  "source": "TRT Haber",
   "lang": "tr"
  },
  {
