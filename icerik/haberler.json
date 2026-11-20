@@ -6,7 +6,8 @@
   "title": "Building structured-light systems in three dimensions",
   "text": "Structured light has become an important tool across modern optics. By shaping properties such as amplitude, phase, polarization and…",
   "url": "https://phys.org/news/2026-11-dimensions.html",
-  "source": "Phys.org"
+  "source": "Phys.org",
+  "lang": "en"
  },
  {
   "id": "33a3aceb4d",
@@ -15,7 +16,8 @@
   "title": "'PAC-MAN' capsules that gobble up particles in turbulent water show promise for filtration and drug delivery",
   "text": "Scientists have created hollow capsules with single openings that can selectively filter particles thanks to the turbulence in surrounding…",
   "url": "https://phys.org/news/2026-11-pac-capsules-gobble-particles-turbulent.html",
-  "source": "Phys.org"
+  "source": "Phys.org",
+  "lang": "en"
  },
  {
   "id": "3644badf9d",
@@ -42,7 +44,8 @@
   "title": "A material just one atom thick reveals a strange quantum secret",
   "text": "Researchers at the University of Osaka have discovered a remarkable quantum state forming at the boundary between a one-atom-thick material…",
   "url": "https://www.sciencedaily.com/releases/2026/11/261115085554.htm",
-  "source": "ScienceDaily"
+  "source": "ScienceDaily",
+  "lang": "en"
  },
  {
   "id": "4cb0de891c",
@@ -51,7 +54,8 @@
   "title": "Physicists defy expectations by controlling the magnetic heart of a single atom",
   "text": "Scientists have unexpectedly discovered how to control the magnetic spin inside a single atom's nucleus using radio waves, overturning…",
   "url": "https://www.sciencedaily.com/releases/2026/11/261114202232.htm",
-  "source": "ScienceDaily"
+  "source": "ScienceDaily",
+  "lang": "en"
  },
  {
   "id": "5d04dde750",
@@ -87,7 +91,8 @@
   "title": "vivo X500 Pro Max, profesyonel fotoğrafçılarla Türkiye’de tanıtıldı",
   "text": "vivo, X500 Pro Max modelini FOTON iş birliğiyle İstanbul'da düzenlediği ve 30 profesyonel fotoğrafçının katıldığı özel bir etkinlikle…",
   "url": "https://www.webtekno.com/vivo-x500-pro-max-turkiye-de-tanitildi-h229255.html",
-  "source": "Webtekno"
+  "source": "Webtekno",
+  "lang": "tr"
  },
  {
   "id": "c1a72ba99d",
@@ -105,7 +110,8 @@
   "title": "Yeni Hyundai Elantra tanıtıldı: 157 beygirlik hibrit motor",
   "text": "Hyundai Elantra, büyüyen gövdesi, 157 beygirlik hibrit motoru ve Pleos Connect multimedya sistemiyle tanıtıldı. Fiziksel tuşların korunduğu…",
   "url": "https://www.donanimhaber.com/yeni-hyundai-elantra-tanitildi-157-beygirlik-hibrit-motor--213161",
-  "source": "DonanımHaber"
+  "source": "DonanımHaber",
+  "lang": "tr"
  },
  {
   "id": "714fb350e8",
@@ -114,7 +120,8 @@
   "title": "AOC Türkiye'nin ilk uluslararası elektronik harp etkinliği Ankara'da düzenlenecek",
   "text": "Dünya genelinde elektronik harp profesyonellerini ve uzmanlarını buluşturan Association of Old Crows'un (AOC) Türkiye şubesi, ilk…",
   "url": "https://www.aa.com.tr/tr/bilim-teknoloji/aoc-turkiyenin-ilk-uluslararasi-elektronik-harp-etkinligi-ankarada-duzenlenecek/4131080",
-  "source": "Anadolu Ajansı"
+  "source": "Anadolu Ajansı",
+  "lang": "tr"
  },
  {
   "id": "2da4d78cba",
@@ -123,7 +130,8 @@
   "title": "NASA'nın uzay aracı Voyager 1, Dünya'dan bir ışık günü uzaklığa ulaşarak tarihe geçti",
   "text": "ABD Havacılık ve Uzay Ajansının (NASA) 1977'de uzaya gönderdiği Voyager 1, Dünya'dan bir ışık günü uzaklığa ulaşan ilk insan yapımı nesne…",
   "url": "https://www.aa.com.tr/tr/bilim-teknoloji/nasanin-uzay-araci-voyager-1-dunyadan-bir-isik-gunu-uzakliga-ulasarak-tarihe-gecti/4129247",
-  "source": "Anadolu Ajansı"
+  "source": "Anadolu Ajansı",
+  "lang": "tr"
  },
  {
   "id": "1862a0d53d",
@@ -150,7 +158,8 @@
   "title": "Türk mühendisler Akkuyu NGS'de ilk reaktör için gün sayıyor",
   "text": "Akkuyu Nükleer Güç Santrali'nin (NGS) ilk reaktöründe fiziksel çalıştırma hazırlıkları sürerken, yaklaşık 7 yıl Rusya'da eğitim gören Türk…",
   "url": "https://www.trthaber.com/haber/bilim-teknoloji/turk-muhendisler-akkuyu-ngsde-ilk-reaktor-icin-gun-sayiyor-963530.html",
-  "source": "TRT Haber"
+  "source": "TRT Haber",
+  "lang": "tr"
  },
  {
   "id": "09ad5d90f8",
@@ -168,7 +177,8 @@
   "title": "Vulcan roketi havada arızalandı, uzay kargosu kayboldu",
   "text": "Boeing ve Lockheed Martin'in Vulcan roketi, uzaya fırlatıldıktan 10 dakika sonra arızalandı. Roketin taşıdığı Amazon'un 40 internet uydusu…",
   "url": "https://www.ntv.com.tr/teknoloji/galeri-vulcan-roketi-havada-arizalandi-uzay-kargosu-kayboldu-1751052",
-  "source": "NTV"
+  "source": "NTV",
+  "lang": "tr"
  },
  {
   "id": "73a4a11121",
@@ -177,7 +187,38 @@
   "title": "Türkiye'nin en büyük kuantum bilgisayarı 2027'de devreye alınacak",
   "text": "Sanayi ve Teknoloji Bakanı Mehmet Fatih Kacır, Türkiye'nin Milli Teknoloji Hamlesi vizyonu doğrultusunda, ülkenin en büyük kuantum…",
   "url": "https://www.trthaber.com/haber/bilim-teknoloji/turkiyenin-en-buyuk-kuantum-bilgisayari-2027de-devreye-alinacak-963295.html",
-  "source": "TRT Haber"
+  "source": "TRT Haber",
+  "lang": "tr"
+ },
+ {
+  "id": "54c02ffe4c",
+  "date": "2026-11-10",
+  "tag": "FİZİK",
+  "title": "COP31'de Doğuş Teknoloji'ye ödül: Dönüşen teknolojik atıklar genç kızların eğitimlerine destek oldu",
+  "text": "Doğuş Teknoloji, elektronik atıkların geri dönüşümüyle genç kızların eğitimine kaynak yaratan projesiyle COP 31 Zirvesi'nde ödüle layık…",
+  "url": "https://www.ntv.com.tr/teknoloji/video-cop31de-dogus-teknolojiye-odul-donusen-teknolojik-atiklar-genc-kizlarin-egitimlerine-destek-oldu-1750309",
+  "source": "NTV",
+  "lang": "tr"
+ },
+ {
+  "id": "7a992fb21a",
+  "date": "2026-11-08",
+  "tag": "FİZİK",
+  "title": "ASELSAN, enerji ihtiyacının tamamını güneşten karşılayacak",
+  "text": "ASELSAN, üretim faaliyetlerinde kullanılan enerjinin tamamının yenilenebilir kaynaklardan karşılanması amacıyla kurduğu Güneş Enerjisi…",
+  "url": "https://www.trthaber.com/haber/bilim-teknoloji/aselsan-enerji-ihtiyacinin-tamamini-gunesten-karsilayacak-962589.html",
+  "source": "TRT Haber",
+  "lang": "tr"
+ },
+ {
+  "id": "a0d54b7bf0",
+  "date": "2026-11-06",
+  "tag": "FİZİK",
+  "title": "İki astronot 7 saatlik uzay yürüyüşü yaptı",
+  "text": "Astronotlar Anil Menon ve Joshua Kutryk, 6 saat 59 dakikalık uzay yürüyüşüyle Uluslararası Uzay İstasyonu'nun son açılır güneş paneli…",
+  "url": "https://www.ntv.com.tr/teknoloji/iki-astronot-7-saatlik-uzay-yuruyusu-yapti-1749593",
+  "source": "NTV",
+  "lang": "tr"
  },
  {
   "id": "d1fa3a97e2",
@@ -186,7 +227,8 @@
   "title": "Türkiye'nin Ay'a ilk teması için hedef 2027",
   "text": "Türkiye, uzay teknolojilerindeki kapasitesini geliştirme hedefleri doğrultusunda gelecek yıl Uzay Havası Uygulama Merkezini (UHUM) kurmak…",
   "url": "https://www.trthaber.com/haber/bilim-teknoloji/turkiyenin-aya-ilk-temasi-icin-hedef-2027-961466.html",
-  "source": "TRT Haber"
+  "source": "TRT Haber",
+  "lang": "tr"
  },
  {
   "id": "31f0769012",
@@ -195,6 +237,7 @@
   "title": "Türkiye'nin uzay ve havacılık faaliyetleri için 100 milyar liraya yakın ödenek",
   "text": "Türkiye'nin uzay ve havacılık faaliyetlerinin geliştirilmesi amacıyla 2027'de 24 milyar 587 milyon lira, 2028'de 30 milyar 597 milyon lira,…",
   "url": "https://www.trthaber.com/haber/bilim-teknoloji/turkiyenin-uzay-ve-havacilik-faaliyetleri-icin-100-milyar-liraya-yakin-odenek-960750.html",
-  "source": "TRT Haber"
+  "source": "TRT Haber",
+  "lang": "tr"
  }
 ]
