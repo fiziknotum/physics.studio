@@ -21,7 +21,7 @@ jobs:
           Yalnızca başlık, kısa özet, kaynak adı ve bağlantı alınır; haberin tamamı kopyalanmaz.
           Elle eklenen kayıtlar ("manuel": true) silinmez. Standart kütüphane yeterli, ek paket gerekmez."""
           import json, re, sys, hashlib, html, datetime, urllib.request, xml.etree.ElementTree as ET, os
-          # ---- KAYNAKLAR: buradan düzenle (aktif: false ile kapat, anahtar: kelime süzgeci, alan: "baslik" ise yalnızca başlığa bakar, dil: tr/en) ----
+          # ---- KAYNAKLAR: buradan düzenle (aktif: false ile kapat, anahtar: kelime süzgeci, alan: "baslik", ozetsiz: true, dil: tr/en) ----
           KAYNAK_JSON = r'''{
            "toplam": 40,
            "kaynaklar": [
@@ -33,7 +33,7 @@ jobs:
              ],
              "etiket": "FİZİK",
              "max": 5,
-             "aktif": true,
+             "aktif": false,
              "anahtar": [
               "fizik",
               "kuantum",
@@ -125,7 +125,8 @@ jobs:
               "uydu",
               "ay'a",
               "mars"
-             ]
+             ],
+             "ozetsiz": true
             },
             {
              "ad": "NTV",
@@ -136,7 +137,7 @@ jobs:
              ],
              "etiket": "FİZİK",
              "max": 3,
-             "aktif": true,
+             "aktif": false,
              "anahtar": [
               "fizik",
               "kuantum",
@@ -347,7 +348,9 @@ jobs:
                   if not k: continue
                   anah = [tlower(t) for t in k.get('anahtar', [])]
                   if anah and not eslesir(metin(x, k), anah): continue
-                  x['lang'] = k.get('dil', 'tr'); temiz_eski[i] = x
+                  x['lang'] = k.get('dil', 'tr')
+                  if k.get('ozetsiz'): x['text'] = ''
+                  temiz_eski[i] = x
               eski_oto = temiz_eski
               yeni = {}
               for k in cfg.get('kaynaklar', []):
@@ -364,7 +367,9 @@ jobs:
                       if anah and not eslesir(metin(x, k), anah): continue
                       x['lang'] = k.get('dil', 'tr')
                       kabul.append(x)
-                  for x in kabul[:k.get('max', 5)]: yeni[x['id']] = x
+                  for x in kabul[:k.get('max', 5)]:
+                      if k.get('ozetsiz'): x['text'] = ''
+                      yeni[x['id']] = x
                   print('TAMAM  %s: %d öğe okundu, %d süzgeçten geçti, %d eklendi (%s)' % (k['ad'], len(alinan), len(kabul), min(len(kabul), k.get('max', 5)), kullanilan))
               birlesik = {**eski_oto, **yeni}
               oto = sorted(birlesik.values(), key=lambda x: x['date'], reverse=True)[:cfg.get('toplam', 30)]
