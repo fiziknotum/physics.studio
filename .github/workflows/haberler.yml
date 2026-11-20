@@ -21,14 +21,16 @@ jobs:
           Yalnızca başlık, kısa özet, kaynak adı ve bağlantı alınır; haberin tamamı kopyalanmaz.
           Elle eklenen kayıtlar ("manuel": true) silinmez. Standart kütüphane yeterli, ek paket gerekmez."""
           import json, re, sys, hashlib, html, datetime, urllib.request, xml.etree.ElementTree as ET, os
-          # ---- KAYNAKLAR: buradan düzenle (aktif: false ile kapat, anahtar ile kelime süzgeci) ----
-          KAYNAK_JSON = r'''
-          {
+          # ---- KAYNAKLAR: buradan düzenle (aktif: false ile kapat, anahtar ile kelime süzgeci, urls: sırayla denenir) ----
+          KAYNAK_JSON = r'''{
            "toplam": 40,
            "kaynaklar": [
             {
              "ad": "Bilim ve Teknik (TÜBİTAK)",
-             "url": "https://bilimteknik.tubitak.gov.tr/feed",
+             "urls": [
+              "https://bilimteknik.tubitak.gov.tr/feed",
+              "https://bilimteknik.tubitak.gov.tr/rss.xml"
+             ],
              "etiket": "FİZİK",
              "max": 4,
              "aktif": true,
@@ -54,20 +56,23 @@ jobs:
               "nobel",
               "cern",
               "teleskop",
-              "enerji",
               "nötron",
               "proton",
-              "dalga",
               "radyoaktif",
               "nükleer",
               "yıldız",
               "gezegen",
-              "galaksi"
+              "galaksi",
+              "bilim insan",
+              "araştırmacı",
+              "deney"
              ]
             },
             {
              "ad": "Anadolu Ajansı",
-             "url": "https://www.aa.com.tr/tr/rss/default?cat=bilim-teknoloji",
+             "urls": [
+              "https://www.aa.com.tr/tr/rss/default?cat=bilim-teknoloji"
+             ],
              "etiket": "FİZİK",
              "max": 4,
              "aktif": true,
@@ -93,20 +98,24 @@ jobs:
               "nobel",
               "cern",
               "teleskop",
-              "enerji",
               "nötron",
               "proton",
-              "dalga",
               "radyoaktif",
               "nükleer",
               "yıldız",
               "gezegen",
-              "galaksi"
+              "galaksi",
+              "bilim insan",
+              "araştırmacı",
+              "deney"
              ]
             },
             {
              "ad": "TRT Haber",
-             "url": "https://www.trthaber.com/bilim_teknoloji_articles.rss",
+             "urls": [
+              "https://www.trthaber.com/bilim_teknoloji_articles.rss",
+              "https://www.trthaber.com/bilim-teknoloji.rss"
+             ],
              "etiket": "FİZİK",
              "max": 4,
              "aktif": true,
@@ -132,20 +141,23 @@ jobs:
               "nobel",
               "cern",
               "teleskop",
-              "enerji",
               "nötron",
               "proton",
-              "dalga",
               "radyoaktif",
               "nükleer",
               "yıldız",
               "gezegen",
-              "galaksi"
+              "galaksi",
+              "bilim insan",
+              "araştırmacı",
+              "deney"
              ]
             },
             {
              "ad": "NTV",
-             "url": "https://www.ntv.com.tr/teknoloji.rss",
+             "urls": [
+              "https://www.ntv.com.tr/teknoloji.rss"
+             ],
              "etiket": "FİZİK",
              "max": 3,
              "aktif": true,
@@ -171,36 +183,124 @@ jobs:
               "nobel",
               "cern",
               "teleskop",
-              "enerji",
               "nötron",
               "proton",
-              "dalga",
               "radyoaktif",
               "nükleer",
               "yıldız",
               "gezegen",
-              "galaksi"
+              "galaksi",
+              "bilim insan",
+              "araştırmacı",
+              "deney"
+             ]
+            },
+            {
+             "ad": "Webtekno",
+             "urls": [
+              "https://www.webtekno.com/rss.xml"
+             ],
+             "etiket": "FİZİK",
+             "max": 2,
+             "aktif": true,
+             "anahtar": [
+              "fizik",
+              "kuantum",
+              "atom",
+              "parçacık",
+              "ışık",
+              "foton",
+              "elektron",
+              "lazer",
+              "kara delik",
+              "evren",
+              "uzay",
+              "gökbilim",
+              "astronomi",
+              "yerçekimi",
+              "manyetik",
+              "süper iletken",
+              "süperiletken",
+              "füzyon",
+              "nobel",
+              "cern",
+              "teleskop",
+              "nötron",
+              "proton",
+              "radyoaktif",
+              "nükleer",
+              "yıldız",
+              "gezegen",
+              "galaksi",
+              "bilim insan",
+              "araştırmacı",
+              "deney"
+             ]
+            },
+            {
+             "ad": "DonanımHaber",
+             "urls": [
+              "https://www.donanimhaber.com/rss/tum/"
+             ],
+             "etiket": "FİZİK",
+             "max": 2,
+             "aktif": true,
+             "anahtar": [
+              "fizik",
+              "kuantum",
+              "atom",
+              "parçacık",
+              "ışık",
+              "foton",
+              "elektron",
+              "lazer",
+              "kara delik",
+              "evren",
+              "uzay",
+              "gökbilim",
+              "astronomi",
+              "yerçekimi",
+              "manyetik",
+              "süper iletken",
+              "süperiletken",
+              "füzyon",
+              "nobel",
+              "cern",
+              "teleskop",
+              "nötron",
+              "proton",
+              "radyoaktif",
+              "nükleer",
+              "yıldız",
+              "gezegen",
+              "galaksi",
+              "bilim insan",
+              "araştırmacı",
+              "deney"
              ]
             },
             {
              "ad": "Phys.org",
-             "url": "https://phys.org/rss-feed/physics-news/",
+             "urls": [
+              "https://phys.org/rss-feed/physics-news/"
+             ],
              "etiket": "FİZİK",
              "max": 2,
              "aktif": true
             },
             {
              "ad": "ScienceDaily",
-             "url": "https://www.sciencedaily.com/rss/matter_energy/physics.xml",
+             "urls": [
+              "https://www.sciencedaily.com/rss/matter_energy/physics.xml"
+             ],
              "etiket": "FİZİK",
              "max": 2,
              "aktif": true
             }
            ]
-          }
-          '''
+          }'''
           OUT = os.environ.get('HABER_CIKTI', 'icerik/haberler.json')
-          UA = 'Mozilla/5.0 (compatible; PhysicsStudioHaber/1.0; +https://physicsstudio.com.tr)'
+          UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36'
           def temiz(t, n=0):
               t = re.sub(r'<[^>]+>', ' ', html.unescape(t or '')); t = re.sub(r'\s+', ' ', t).strip()
               return (t[:n].rsplit(' ', 1)[0] + '…') if n and len(t) > n else t
@@ -212,7 +312,7 @@ jobs:
               return datetime.date.today().isoformat()
           def etiket(e): return e.tag.rsplit('}', 1)[-1]
           def oku(k):
-              req = urllib.request.Request(k['url'], headers={'User-Agent': UA})
+              req = urllib.request.Request(k['url'], headers={'User-Agent': UA, 'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*', 'Accept-Language': 'tr,en;q=0.8'})
               with urllib.request.urlopen(req, timeout=25) as r: kok = ET.fromstring(r.read())
               out = []
               for it in kok.iter():
@@ -225,7 +325,7 @@ jobs:
                   ozet = temiz((d.get('description') if 'description' in d else d.get('summary') if 'summary' in d else d.get('content')).text if any(x in d for x in ('description', 'summary', 'content')) else '', 140)
                   tr = d['pubDate'].text if 'pubDate' in d else d['published'].text if 'published' in d else d['updated'].text if 'updated' in d else ''
                   out.append({'id': hashlib.sha1(link.encode()).hexdigest()[:10], 'date': tarih(tr), 'tag': k.get('etiket', 'FİZİK'), 'title': baslik, 'text': ozet, 'url': link, 'source': k['ad']})
-              return out[:k.get('max', 5)]
+              return out
           def main():
               cfg = json.loads(open(os.environ['HABER_KAYNAK'], encoding='utf-8').read()) if os.environ.get('HABER_KAYNAK') else json.loads(KAYNAK_JSON)
               try: mevcut = json.load(open(OUT, encoding='utf-8'))
@@ -235,11 +335,18 @@ jobs:
               for k in cfg.get('kaynaklar', []):
                   if not k.get('aktif', True): continue
                   anah = [a.lower() for a in k.get('anahtar', [])]
-                  try:
-                      for x in oku(k):
-                          if anah and not any(a in (x['title'] + ' ' + x['text']).lower() for a in anah): continue
-                          yeni[x['id']] = x
-                  except Exception as e: print('KAYNAK HATASI', k['ad'], repr(e)[:160], file=sys.stderr)
+                  adresler = k.get('urls') or [k['url']]
+                  alinan = None; hata = ''
+                  for u in adresler:
+                      try: alinan = oku(dict(k, url=u)); kullanilan = u; break
+                      except Exception as e: hata = repr(e)[:140]
+                  if alinan is None: print('HATA   ', k['ad'], '->', hata, file=sys.stderr); continue
+                  kabul = []
+                  for x in alinan:
+                      if anah and not any(a in (x['title'] + ' ' + x['text']).lower() for a in anah): continue
+                      kabul.append(x)
+                  for x in kabul[:k.get('max', 5)]: yeni[x['id']] = x
+                  print('TAMAM  %s: %d öğe okundu, %d süzgeçten geçti, %d eklendi (%s)' % (k['ad'], len(alinan), len(kabul), min(len(kabul), k.get('max', 5)), kullanilan))
               birlesik = {**eski_oto, **yeni}
               oto = sorted(birlesik.values(), key=lambda x: x['date'], reverse=True)[:cfg.get('toplam', 30)]
               son = sorted(manuel + oto, key=lambda x: x['date'], reverse=True)
